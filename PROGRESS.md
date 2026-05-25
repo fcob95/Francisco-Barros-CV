@@ -51,15 +51,19 @@ Falta cerrar F0 formal. **Última actualización:** 2026-05-25.
       (`@import "tailwindcss"` + `@theme` vacío), `app/{layout,page}.tsx` placeholder, ESLint flat config,
       Vitest (+ smoke test) y Playwright configurados.
 - [x] **F0 (auditoría retroactiva, 2026-05-25):** `code-reviewer` revisó el núcleo. Bloqueante: `pnpm
-    test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vitest. `frontend-builder`
+  test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vitest. `frontend-builder`
       aplicó fixes: aislar Vitest del PostCSS (`css.postcss.plugins: []` en `vitest.config.ts`), crear
       `.nvmrc=22`, añadir `pnpm test` al hook `stop-quality.mjs`, instalar `prettier` 3.8.3 +
       `.prettierrc.json`/`.prettierignore`. Quartet re-verificado verde (lint/typecheck/test/build; First
       Load JS 103 kB, dentro del NFR <150 KB).
-- [ ] **F0 (cierre formal pendiente):** `git init` con **flujo PR-based + CI en `main`** (decidido
-      2026-05-25); `.commits/`/`.githooks/` + integración `commit-logger`; GitHub Actions con
-      `pnpm install --frozen-lockfile` + lint + typecheck + test + build (A4: el `--frozen-lockfile` es la
-      única garantía real de la decisión 12, ya que `package.json` usa rangos `^`); re-validación por
+- [x] **F0 (repo, 2026-05-25):** `git init` (rama `main`) + commit inicial `7919275` (101 archivos,
+      sin secretos) con primer log en `.commits/`. Push a `github.com/fcob95/Francisco-Barros-CV`
+      (**privado**). `.gitignore` endurecido (`.env*` + `!.env.example`). Commit inicial fue directo a
+      `main` (remoto vacío); cambios siguientes vía **flujo PR-based** (decidido 2026-05-25).
+- [ ] **F0 (cierre formal pendiente):** `.githooks/pre-commit` + integración `commit-logger` para
+      commits manuales; GitHub Actions con `pnpm install --frozen-lockfile` + lint + typecheck + test +
+      build (A4: el `--frozen-lockfile` es la única garantía real de la decisión 12, ya que
+      `package.json` usa rangos `^`); branch protection en `main` (PR-based); re-validación por
       `code-reviewer` en checkpoint antes de declarar F0 cerrado.
 - [ ] **Inconsistencia menor abierta:** `PLAN.md` lista "shadcn init" tanto en §F0 como en §F3. Decidido:
       shadcn se inicializa en **F3** (depende de los tokens del `@theme` que se portan ahí). Falta alinear
