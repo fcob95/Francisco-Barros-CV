@@ -1,0 +1,72 @@
+# PROGRESS.md
+
+Single source of truth del estado arquitectónico actual y las decisiones activas. Reemplaza decisiones
+obsoletas, no las historiza (eso vive en `.commits/`).
+
+> Para "dónde estamos y cómo seguir" (ejecución, paso a paso, encargados), ver **`STATUS.md`**. Aquí
+> viven solo las **decisiones**; no se duplican en STATUS.
+
+## Estado actual
+
+**Etapa:** E3 iniciada, **F0 parcial**. `design-assets/v1/` ya cargado (E2.5 cumplida). Entorno local
+auditado por `code-reviewer` y verde **verificado** (lint · typecheck · test · build) — ver decisión 12.
+Falta cerrar F0 formal. **Última actualización:** 2026-05-25.
+
+> Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
+> flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
+> auditó retroactivamente con `code-reviewer`: detectó que `pnpm test` estaba **roto** (no era "verde"
+> como se afirmaba) y otros 3 gaps. `frontend-builder` aplicó los fixes; quartet re-verificado verde.
+> Quedan pendientes los pasos de ceremonia formal de F0 (git/hooks/CI, ver Pendiente).
+
+## Decisiones activas (cerradas en E1)
+
+1. **Analítica:** PostHog Cloud only. Sin Neon/Drizzle/`/api/analytics/track`/`/admin`. F2 eliminada.
+2. **CMS:** contenido tipado en repo + Zod, bilingüe, shape isomorfo a Sanity. Migración a Sanity =
+   mapeo mecánico futuro (ADR-002 + skill `migrate-content-to-sanity` documentada, no creada).
+3. **Orquestador:** lean, 5 agentes. seo/analytics/i18n como skills+hooks, promovibles a agente.
+4. **3D:** CSS 3D transforms + Canvas 2D. R3F diferido.
+5. **i18n routing:** slugs en inglés todos los locales; `localePrefix: 'as-needed'` (ES raíz, EN `/en`).
+6. **Dominio:** placeholder `https://franciscobarros.cl` vía `NEXT_PUBLIC_SITE_URL`.
+7. **Contacto:** solo email vía Resend, sin persistencia.
+8. **Contenido:** seed bilingüe realista; reemplazo posterior editando `content/`.
+9. **Patrón de diseño:** presentacional + contenedor.
+10. **Tailwind v4** (CSS-first): tokens portados al bloque `@theme` de `app/globals.css`, no
+    `tailwind.config.ts` (ADR-006).
+11. **Analítica geo:** PostHog deriva geo país/ciudad y descarta la IP cruda (`$ip`); no se persiste
+    (ADR-007).
+12. **Toolchain fijado:** pnpm `11.3.0` (vía `packageManager` + Corepack), Node ≥20 (`.nvmrc` = 22).
+    Versiones del stack fijadas en `pnpm-lock.yaml` (Next 15.5, React 19.2, TS 5.9, Tailwind v4.3,
+    next-intl 4, Zod 3, Vitest 2, Playwright 1.60). Scripts de build nativos aprobados en
+    `pnpm-workspace.yaml` (`allowBuilds`; pnpm 11 ya no lee `onlyBuiltDependencies` de `package.json`).
+    Lint vía ESLint CLI (no `next lint`, deprecado en Next 16). **No hay Python/venv** — el "entorno" es
+    Node/pnpm. Guía de arranque por sesión en `CLAUDE.md` §Entorno local.
+
+## Pendiente / próximos pasos
+
+- [x] Cerrar scaffolding E2 (docs + `.claude/` + CLAUDE.md jerárquicos + design-assets).
+- [x] Gate E2 → aprobado por Francisco (2026-05-25).
+- [x] **E2.5:** `design-assets/v1/` cargado (41 archivos: hero, projects-list, project-detail, about,
+      experience, contact, chrome, extras, design-tokens, preview).
+- [x] **F0 (núcleo, fuera de flujo formal):** `package.json` + lockfile, `tsconfig` strict, Tailwind v4
+      (`@import "tailwindcss"` + `@theme` vacío), `app/{layout,page}.tsx` placeholder, ESLint flat config,
+      Vitest (+ smoke test) y Playwright configurados.
+- [x] **F0 (auditoría retroactiva, 2026-05-25):** `code-reviewer` revisó el núcleo. Bloqueante: `pnpm
+    test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vitest. `frontend-builder`
+      aplicó fixes: aislar Vitest del PostCSS (`css.postcss.plugins: []` en `vitest.config.ts`), crear
+      `.nvmrc=22`, añadir `pnpm test` al hook `stop-quality.mjs`, instalar `prettier` 3.8.3 +
+      `.prettierrc.json`/`.prettierignore`. Quartet re-verificado verde (lint/typecheck/test/build; First
+      Load JS 103 kB, dentro del NFR <150 KB).
+- [ ] **F0 (cierre formal pendiente):** `git init` con **flujo PR-based + CI en `main`** (decidido
+      2026-05-25); `.commits/`/`.githooks/` + integración `commit-logger`; GitHub Actions con
+      `pnpm install --frozen-lockfile` + lint + typecheck + test + build (A4: el `--frozen-lockfile` es la
+      única garantía real de la decisión 12, ya que `package.json` usa rangos `^`); re-validación por
+      `code-reviewer` en checkpoint antes de declarar F0 cerrado.
+- [ ] **Inconsistencia menor abierta:** `PLAN.md` lista "shadcn init" tanto en §F0 como en §F3. Decidido:
+      shadcn se inicializa en **F3** (depende de los tokens del `@theme` que se portan ahí). Falta alinear
+      el texto de `PLAN.md` §F0.
+- [ ] E3: F1 (content layer) en adelante, una fase a la vez.
+
+## Notas abiertas
+
+- GitHub MCP asume flujo PR-based con CI en main. Confirmar o cambiar a commits directos.
+- PostHog MCP documentado pero no activado.

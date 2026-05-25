@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Francisco Barros — Portfolio · design-assets/v1 preview</title>
+<meta name="description" content="Editorial 3D portfolio preview. Pricing Strategy · Revenue Analytics · AI-Augmented Decision Making." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Tailwind v4 play CDN -->
+<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  /* ─── Tailwind v4 theme tokens (light defaults; dark via [data-theme="dark"]) ─── */
+  :root {
+    --c-paper:           #f5f1eb;
+    --c-paper-raised:    #fbf8f3;
+    --c-paper-sunken:    #ede7dc;
+    --c-ink:             #1c1917;
+    --c-ink-muted:       #57534e;
+    --c-ink-soft:        #78716c;
+    --c-rule:            #e0d8c8;
+    --c-rule-strong:     #cabfa9;
+    --c-terracotta:      #d4621a;
+    --c-terracotta-ink:  #9c4612;
+    --c-ocean:           #0c4a6e;
+    --c-ochre:           #c89d2c;
+    --c-success:         #2f7a4d;
+    --c-danger:          #b1331b;
+    --c-focus:           #0c4a6e;
+  }
+  [data-theme="dark"] {
+    --c-paper:           #0f0d0a;
+    --c-paper-raised:    #171411;
+    --c-paper-sunken:    #1d1916;
+    --c-ink:             #f5f1eb;
+    --c-ink-muted:       #a8a29e;
+    --c-ink-soft:        #78716c;
+    --c-rule:            #2a2620;
+    --c-rule-strong:     #3b3530;
+    --c-terracotta:      #e87731;
+    --c-terracotta-ink:  #f59e6b;
+    --c-ocean:           #7dd3fc;
+    --c-ochre:           #eab308;
+    --c-success:         #86efac;
+    --c-danger:          #fca5a5;
+    --c-focus:           #7dd3fc;
+  }
+
+  html, body {
+    background: var(--c-paper);
+    color: var(--c-ink);
+    font-family: "Inter", system-ui, sans-serif;
+    transition: background-color 240ms ease, color 240ms ease;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { margin: 0; }
+  .font-display { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; }
+  .font-mono { font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; }
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  ::selection { background: var(--c-terracotta); color: var(--c-paper); }
+  :focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+
+  /* Reduced motion override */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Loading splash */
+  #splash {
+    position: fixed; inset: 0; background: var(--c-paper); z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "JetBrains Mono", monospace; font-size: 12px;
+    color: var(--c-ink-soft); letter-spacing: 0.12em; text-transform: uppercase;
+    transition: opacity .4s ease;
+  }
+  #splash.hide { opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <span style="width:8px; height:8px; background:var(--c-terracotta); display:inline-block; animation: blink 1s infinite;"></span>
+    <span>Loading preview…</span>
+  </div>
+</div>
+
+<div id="root"></div>
+
+<!-- Preview scripts (order matters: stubs → data → components → app) -->
+<script type="text/babel" data-presets="env,react" src="_preview/stubs.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/data.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/CompanyLogo.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/Header.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/Footer.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/Hero.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/About.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/ProjectsList.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/ProjectDetail.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/Experience.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/Contact.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/NotFound.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="_preview/App.jsx"></script>
+
+<script>
+  // Hide splash once React has mounted
+  (function() {
+    const start = Date.now();
+    const tick = () => {
+      const r = document.getElementById('root');
+      if (r && r.childElementCount > 0) {
+        document.getElementById('splash')?.classList.add('hide');
+        setTimeout(() => document.getElementById('splash')?.remove(), 500);
+        return;
+      }
+      if (Date.now() - start > 8000) {
+        // give up
+        document.getElementById('splash')?.classList.add('hide');
+        return;
+      }
+      setTimeout(tick, 100);
+    };
+    tick();
+  })();
+</script>
+
+<style>@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }</style>
+
+</body>
+</html>

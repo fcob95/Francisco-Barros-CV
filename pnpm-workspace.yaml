@@ -1,0 +1,12 @@
+# pnpm 11 movió aquí varios settings (incluso sin workspaces).
+# allowBuilds: qué deps pueden correr sus scripts de build (postinstall).
+# true = binarios nativos que se compilan/descargan y los necesitamos;
+# core-js solo imprime un mensaje en postinstall, no hace falta.
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  core-js: false
+  esbuild: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true

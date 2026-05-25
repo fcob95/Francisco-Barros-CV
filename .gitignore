@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# Production
+dist/
+
+# Env (ignore every env file; keep only the committed example)
+.env*
+!.env.example
+
+# Vercel
+.vercel/
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+.playwright/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Claude Code (commit the orchestrator; ignore local overrides + caches + logs)
+.claude/settings.local.json
+.claude/.cache/
+.claude/logs/
+
+# TypeScript
+*.tsbuildinfo

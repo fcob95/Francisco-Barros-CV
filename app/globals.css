@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/*
+ * Tailwind v4 CSS-first (ADR-006): los design tokens reales se portan al bloque
+ * @theme en F3 desde design-assets/vN/design-tokens.ts. No hardcodear la paleta aquí.
+ * Bloque vacío a propósito hasta entonces; el build es válido igual.
+ */
+@theme {
+}
