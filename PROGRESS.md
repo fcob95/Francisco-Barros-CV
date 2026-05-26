@@ -51,7 +51,7 @@ Falta cerrar F0 formal. **Última actualización:** 2026-05-25.
       (`@import "tailwindcss"` + `@theme` vacío), `app/{layout,page}.tsx` placeholder, ESLint flat config,
       Vitest (+ smoke test) y Playwright configurados.
 - [x] **F0 (auditoría retroactiva, 2026-05-25):** `code-reviewer` revisó el núcleo. Bloqueante: `pnpm
-  test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vitest. `frontend-builder`
+    test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vitest. `frontend-builder`
       aplicó fixes: aislar Vitest del PostCSS (`css.postcss.plugins: []` en `vitest.config.ts`), crear
       `.nvmrc=22`, añadir `pnpm test` al hook `stop-quality.mjs`, instalar `prettier` 3.8.3 +
       `.prettierrc.json`/`.prettierignore`. Quartet re-verificado verde (lint/typecheck/test/build; First
@@ -60,17 +60,18 @@ Falta cerrar F0 formal. **Última actualización:** 2026-05-25.
       sin secretos) con primer log en `.commits/`. Push a `github.com/fcob95/Francisco-Barros-CV`
       (**privado**). `.gitignore` endurecido (`.env*` + `!.env.example`). Commit inicial fue directo a
       `main` (remoto vacío); cambios siguientes vía **flujo PR-based** (decidido 2026-05-25).
-- [ ] **F0 (cierre formal pendiente):** `.githooks/pre-commit` + integración `commit-logger` para
-      commits manuales; GitHub Actions con `pnpm install --frozen-lockfile` + lint + typecheck + test +
-      build (A4: el `--frozen-lockfile` es la única garantía real de la decisión 12, ya que
-      `package.json` usa rangos `^`); branch protection en `main` (PR-based); re-validación por
-      `code-reviewer` en checkpoint antes de declarar F0 cerrado.
-- [ ] **Inconsistencia menor abierta:** `PLAN.md` lista "shadcn init" tanto en §F0 como en §F3. Decidido:
-      shadcn se inicializa en **F3** (depende de los tokens del `@theme` que se portan ahí). Falta alinear
-      el texto de `PLAN.md` §F0.
+- [~] **F0 (cierre formal, en rama `chore/f0-formal-closure` → PR):** `.githooks/pre-commit` creado
+  (defense-in-depth del flujo `commit-logger` para commits manuales) + `core.hooksPath` wired vía
+  `scripts.prepare`; GitHub Actions `ci.yml` con jobs `quality` (install `--frozen-lockfile` + lint +
+  typecheck + test + build) y `e2e` (playwright). **Falta para flip a ✅:** CI verde en el PR, merge,
+  ruleset de protección en `main` (PR + checks `quality`/`e2e`), y re-validación `code-reviewer`.
+- [x] **Inconsistencia menor (`PLAN.md` §F0):** alineado — shadcn se inicializa en **F3** (no F0); se
+      quitó "Husky" (se usa `.githooks/` nativo vía `core.hooksPath`); CI ahora incluye test + e2e.
 - [ ] E3: F1 (content layer) en adelante, una fase a la vez.
 
 ## Notas abiertas
 
-- GitHub MCP asume flujo PR-based con CI en main. Confirmar o cambiar a commits directos.
 - PostHog MCP documentado pero no activado.
+
+> Resuelto 2026-05-25: flujo **PR-based** confirmado; `main` protegido vía ruleset (PR obligatorio +
+> checks `quality`/`e2e` en verde). El log de commits manuales se cubre con `.githooks/pre-commit`.

@@ -30,10 +30,10 @@ F0 ─► F1 ─► F3 ─► F4 ─► F5 ─► F6 ─► F7 ─► F8
 
 ### F0 — Bootstrap
 
-- **Qué:** repo git (+ `.commits/`, `.githooks/`, flujo `commit-logger`), `pnpm`, Next.js 15 + TS strict, Tailwind v4 + shadcn init, ESLint/Prettier, Husky,
-  `.env.example`, CI base (GitHub Actions: install + lint + typecheck + build).
+- **Qué:** repo git (+ `.commits/`, `.githooks/` nativo vía `core.hooksPath`, flujo `commit-logger`), `pnpm`, Next.js 15 + TS strict, Tailwind v4, ESLint/Prettier,
+  `.env.example`, CI (GitHub Actions: `install --frozen-lockfile` + lint + typecheck + test + build + e2e). _(shadcn init va en F3, no aquí: depende de los tokens del `@theme`.)_
 - **Agente:** `frontend-builder`. **Hooks activos:** prettier, typecheck, stop-quality.
-- **Aceptación:** `pnpm install && pnpm build` ok; CI verde; hooks operativos.
+- **Aceptación:** `pnpm install && pnpm build` ok; CI verde (quartet + e2e); `main` protegido (PR + checks); hooks operativos.
 
 ### F1 — Content layer
 

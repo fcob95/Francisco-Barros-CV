@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "prepare": "node scripts/setup-hooks.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
