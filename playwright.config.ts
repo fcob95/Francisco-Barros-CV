@@ -14,9 +14,11 @@ export default defineConfig({
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    command: "pnpm dev",
+    // En CI: build de producción + `next start` (representativo del bundle real).
+    // En local: dev server para iteración rápida.
+    command: process.env.CI ? "pnpm run build && pnpm run start" : "pnpm dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    timeout: 180_000,
   },
 });

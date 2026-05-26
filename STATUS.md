@@ -82,10 +82,10 @@ Regla de roles de archivo: **decisiones → `PROGRESS.md`**; **ejecución/cómo-
 
 ---
 
-## Decisión menor abierta
+## Decisiones menores (resueltas)
 
-- **GitHub MCP** en `.mcp.json` asume flujo PR-based con CI en main. Si prefieres commits directos a
-  rama, pídelo y se quita (una línea). No bloquea E2.5.
+- **GitHub MCP / flujo:** confirmado **PR-based** con CI en `main`. `main` queda **protegido** (ruleset:
+  PR obligatorio + checks `quality` y `e2e` en verde). Resuelto 2026-05-25 al cerrar F0.
 
 ## Cómo mantener este archivo
 

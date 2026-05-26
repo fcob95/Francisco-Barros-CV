@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# pre-commit — defense-in-depth para el flujo commit-logger.
+#
+# Garantiza que TODO commit lleve un log en .commits/:
+#   - Commits hechos por Claude: el skill `commit-logger` ya stagea un .commits/*.md
+#     antes de llamar a `git commit` -> este hook lo detecta y sale sin hacer nada.
+#   - Commits manuales del usuario (sin pasar por Claude): no hay log staged ->
+#     este hook genera un log mínimo y lo añade al commit en curso.
+#
+# Caveat: en la fase `pre-commit` el mensaje de commit todavía no existe, así que el
+# log auto-generado es mínimo (lista de archivos + tipo genérico). El "summary" real
+# vive en el mensaje del commit. Es suficiente como red de seguridad; los logs ricos
+# (con clasificación trivial/no-trivial y notas tácticas) los produce `commit-logger`.
+
+set -e
+
+# ¿Ya hay un log staged? -> el commit viene de commit-logger; nada que hacer.
+if git diff --cached --name-only | grep -qE '^\.commits/.*\.md$'; then
+  exit 0
+fi
+
+ts=$(date +%Y%m%d-%H%M%S)
+log=".commits/${ts}-manual-commit.md"
+mkdir -p .commits
+
+# Archivos staged (excluyendo el log que estamos por crear), uno por línea.
+staged=$(git diff --cached --name-only)
+
+{
+  printf '# Commit %s\n\n' "$ts"
+  printf '**Type**: chore\n'
+  printf '**Triviality**: unknown (commit manual — no clasificado por commit-logger)\n'
+  printf '**Validated by user**: yes (manual)\n\n'
+  printf '## Summary\n'
+  printf 'Commit manual auto-registrado por el hook pre-commit. El summary real está en el mensaje del commit.\n\n'
+  printf '## Files modified\n'
+  printf '%s\n' "$staged" | while IFS= read -r f; do
+    [ -n "$f" ] && printf -- '- `%s`\n' "$f"
+  done
+  printf '\n## Implementation notes\n'
+  printf 'Log mínimo generado automáticamente. Para logs ricos, commitea vía Claude (skill commit-logger).\n'
+} > "$log"
+
+git add "$log"
+exit 0
