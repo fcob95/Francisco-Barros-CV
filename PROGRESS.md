@@ -8,9 +8,10 @@ obsoletas, no las historiza (eso vive en `.commits/`).
 
 ## Estado actual
 
-**Etapa:** E3, **F0 ✅ cerrada (2026-05-26, PR #1)**. `design-assets/v1/` ya cargado (E2.5 cumplida).
-Entorno verde + `.githooks/pre-commit` + CI (quartet + e2e) + `main` protegido por ruleset. Siguiente:
-**F1 (content layer)**. **Última actualización:** 2026-05-26.
+**Etapa:** E3, **F1 ✅ cerrada (2026-05-26, PR #3)**. F0 cerrada (PR #1). `design-assets/v1/` ya
+cargado (E2.5 cumplida). Capa de contenido tipado lista: schemas Zod isomorfos a Sanity, funciones de
+acceso async-ready y seed bilingüe en `content/`. Entorno verde + CI (quartet + e2e) + `main` protegido
+por ruleset. Siguiente: **F3 (i18n + layout base + design tokens)**. **Última actualización:** 2026-05-26.
 
 > Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
@@ -74,7 +75,11 @@ test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vites
       Revisado por `code-reviewer` (bloqueante B1 + D1 + D2 aplicados).
 - [x] **Inconsistencia menor (`PLAN.md` §F0):** alineado — shadcn se inicializa en **F3** (no F0); se
       quitó "Husky" (se usa `.githooks/` nativo vía `core.hooksPath`); CI ahora incluye test + e2e.
-- [ ] E3: F1 (content layer) en adelante, una fase a la vez.
+- [x] **F1 (content layer, 2026-05-26, PR #3):** `lib/content/schemas.ts` (Zod isomorfo a Sanity:
+      `Profile`, `ProjectCard`, `ProjectDetail` extends, `ExperienceItem`; tipos vía `z.infer`),
+      `lib/content/index.ts` (`getProfile/getProjects/getProject(slug)/getExperience` async-ready,
+      validación en el borde, `pick(locale, field)`), seed bilingüe en `content/` (4 proyectos + 4 exp) + SVGs placeholder en `public/`. 15 tests Vitest. `code-reviewer` APPROVE; quartet + e2e verdes.
+- [ ] E3: F3 (i18n + layout base + design tokens) en adelante, una fase a la vez. _(F2 eliminada.)_
 
 ## Notas abiertas
 
