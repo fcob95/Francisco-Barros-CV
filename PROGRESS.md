@@ -8,9 +8,9 @@ obsoletas, no las historiza (eso vive en `.commits/`).
 
 ## Estado actual
 
-**Etapa:** E3 iniciada, **F0 parcial**. `design-assets/v1/` ya cargado (E2.5 cumplida). Entorno local
-auditado por `code-reviewer` y verde **verificado** (lint · typecheck · test · build) — ver decisión 12.
-Falta cerrar F0 formal. **Última actualización:** 2026-05-25.
+**Etapa:** E3, **F0 ✅ cerrada (2026-05-26, PR #1)**. `design-assets/v1/` ya cargado (E2.5 cumplida).
+Entorno verde + `.githooks/pre-commit` + CI (quartet + e2e) + `main` protegido por ruleset. Siguiente:
+**F1 (content layer)**. **Última actualización:** 2026-05-26.
 
 > Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
@@ -40,8 +40,11 @@ Falta cerrar F0 formal. **Última actualización:** 2026-05-25.
     `pnpm-workspace.yaml` (`allowBuilds`; pnpm 11 ya no lee `onlyBuiltDependencies` de `package.json`).
     Lint vía ESLint CLI (no `next lint`, deprecado en Next 16). **No hay Python/venv** — el "entorno" es
     Node/pnpm. Guía de arranque por sesión en `CLAUDE.md` §Entorno local.
-
-## Pendiente / próximos pasos
+13. **Repo público + `main` protegido (2026-05-26):** el repo `github.com/fcob95/Francisco-Barros-CV`
+    pasó de **privado a público**. Motivo: los rulesets / branch protection requieren GitHub Pro en
+    repos privados; público los habilita gratis. Se verificó que la historia no contiene secretos (solo
+    placeholders en `.env.example`). `main` protegido por **ruleset** (id 16886707): PR obligatorio,
+    checks `quality` y `e2e` en verde, sin push directo ni force-push. Flujo PR-based confirmado.
 
 - [x] Cerrar scaffolding E2 (docs + `.claude/` + CLAUDE.md jerárquicos + design-assets).
 - [x] Gate E2 → aprobado por Francisco (2026-05-25).
@@ -51,20 +54,22 @@ Falta cerrar F0 formal. **Última actualización:** 2026-05-25.
       (`@import "tailwindcss"` + `@theme` vacío), `app/{layout,page}.tsx` placeholder, ESLint flat config,
       Vitest (+ smoke test) y Playwright configurados.
 - [x] **F0 (auditoría retroactiva, 2026-05-25):** `code-reviewer` revisó el núcleo. Bloqueante: `pnpm
-    test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vitest. `frontend-builder`
+test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vitest. `frontend-builder`
       aplicó fixes: aislar Vitest del PostCSS (`css.postcss.plugins: []` en `vitest.config.ts`), crear
       `.nvmrc=22`, añadir `pnpm test` al hook `stop-quality.mjs`, instalar `prettier` 3.8.3 +
       `.prettierrc.json`/`.prettierignore`. Quartet re-verificado verde (lint/typecheck/test/build; First
       Load JS 103 kB, dentro del NFR <150 KB).
 - [x] **F0 (repo, 2026-05-25):** `git init` (rama `main`) + commit inicial `7919275` (101 archivos,
       sin secretos) con primer log en `.commits/`. Push a `github.com/fcob95/Francisco-Barros-CV`
-      (**privado**). `.gitignore` endurecido (`.env*` + `!.env.example`). Commit inicial fue directo a
+      (privado en su origen; **ahora público**, ver decisión 13). `.gitignore` endurecido (`.env*` +
+      `!.env.example`). Commit inicial fue directo a
       `main` (remoto vacío); cambios siguientes vía **flujo PR-based** (decidido 2026-05-25).
-- [~] **F0 (cierre formal, en rama `chore/f0-formal-closure` → PR):** `.githooks/pre-commit` creado
-  (defense-in-depth del flujo `commit-logger` para commits manuales) + `core.hooksPath` wired vía
-  `scripts.prepare`; GitHub Actions `ci.yml` con jobs `quality` (install `--frozen-lockfile` + lint +
-  typecheck + test + build) y `e2e` (playwright). **Falta para flip a ✅:** CI verde en el PR, merge,
-  ruleset de protección en `main` (PR + checks `quality`/`e2e`), y re-validación `code-reviewer`.
+- [x] **F0 (cierre formal, 2026-05-26, PR #1):** `.githooks/pre-commit` (defense-in-depth del flujo
+      `commit-logger` para commits manuales) + `core.hooksPath` wired vía `scripts/setup-hooks.mjs`
+      (`prepare`); GitHub Actions `ci.yml` con jobs `quality` (install `--frozen-lockfile` + quartet) y
+      `e2e` (playwright contra `build && start` en CI). PR #1 con CI verde → merge rebase a `main`
+      (`7722e97`). `main` protegido por ruleset (ver decisión 13); rechazo de push directo verificado.
+      Revisado por `code-reviewer` (bloqueante B1 + D1 + D2 aplicados).
 - [x] **Inconsistencia menor (`PLAN.md` §F0):** alineado — shadcn se inicializa en **F3** (no F0); se
       quitó "Husky" (se usa `.githooks/` nativo vía `core.hooksPath`); CI ahora incluye test + e2e.
 - [ ] E3: F1 (content layer) en adelante, una fase a la vez.
