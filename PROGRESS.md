@@ -16,7 +16,9 @@ Entorno verde + `.githooks/pre-commit` + CI (quartet + e2e) + `main` protegido p
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
 > auditó retroactivamente con `code-reviewer`: detectó que `pnpm test` estaba **roto** (no era "verde"
 > como se afirmaba) y otros 3 gaps. `frontend-builder` aplicó los fixes; quartet re-verificado verde.
-> Quedan pendientes los pasos de ceremonia formal de F0 (git/hooks/CI, ver Pendiente).
+> La ceremonia formal de F0 (git/hooks/CI/ruleset) ya se completó después: PR #1 mergeado a `main`
+> (`7722e97`) con CI en verde y `main` protegido (ver decisión 13). Se conserva esta nota solo como
+> aprendizaje de proceso (no volver a construir núcleo fuera del flujo formal).
 
 ## Decisiones activas (cerradas en E1)
 
