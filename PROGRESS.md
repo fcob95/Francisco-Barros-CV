@@ -8,10 +8,12 @@ obsoletas, no las historiza (eso vive en `.commits/`).
 
 ## Estado actual
 
-**Etapa:** E3, **F1 ✅ cerrada (2026-05-26, PR #3)**. F0 cerrada (PR #1). `design-assets/v1/` ya
-cargado (E2.5 cumplida). Capa de contenido tipado lista: schemas Zod isomorfos a Sanity, funciones de
-acceso async-ready y seed bilingüe en `content/`. Entorno verde + CI (quartet + e2e) + `main` protegido
-por ruleset. Siguiente: **F3 (i18n + layout base + design tokens)**. **Última actualización:** 2026-05-26.
+**Etapa:** E3, **F3 ✅ cerrada (2026-05-26, PR #4)**. F0/F1 cerradas (PR #1/#3). `design-assets/v1/`
+cargado (E2.5). Capa de contenido tipado (F1) + i18n next-intl (`es`/`en`, `as-needed`) + layout
+`app/[locale]/` + theming `data-theme` (next-themes) + tokens editoriales en `@theme` + shadcn lean.
+Entorno verde + CI (quartet + e2e) + `main` protegido por ruleset. Siguiente: **F4 (integración de
+diseño: portar secciones de `design-assets/v1/` a `components/sections/`, una sub-fase por sección)**.
+**Última actualización:** 2026-05-26.
 
 > Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
@@ -29,6 +31,9 @@ por ruleset. Siguiente: **F3 (i18n + layout base + design tokens)**. **Última a
 3. **Orquestador:** lean, 5 agentes. seo/analytics/i18n como skills+hooks, promovibles a agente.
 4. **3D:** CSS 3D transforms + Canvas 2D. R3F diferido.
 5. **i18n routing:** slugs en inglés todos los locales; `localePrefix: 'as-needed'` (ES raíz, EN `/en`).
+   **Detección de idioma activa** (`localeDetection: true`, default de next-intl, ratificado 2026-05-26):
+   `/` es la URL canónica en ES, pero un navegador con `Accept-Language: en` se redirige a `/en`. El
+   idioma también es conmutable vía el switcher. ("ES raíz" = ES sin prefijo, no "siempre español en `/`".)
 6. **Dominio:** placeholder `https://franciscobarros.cl` vía `NEXT_PUBLIC_SITE_URL`.
 7. **Contacto:** solo email vía Resend, sin persistencia.
 8. **Contenido:** seed bilingüe realista; reemplazo posterior editando `content/`.
@@ -79,10 +84,24 @@ test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vites
       `Profile`, `ProjectCard`, `ProjectDetail` extends, `ExperienceItem`; tipos vía `z.infer`),
       `lib/content/index.ts` (`getProfile/getProjects/getProject(slug)/getExperience` async-ready,
       validación en el borde, `pick(locale, field)`), seed bilingüe en `content/` (4 proyectos + 4 exp) + SVGs placeholder en `public/`. 15 tests Vitest. `code-reviewer` APPROVE; quartet + e2e verdes.
-- [ ] E3: F3 (i18n + layout base + design tokens) en adelante, una fase a la vez. _(F2 eliminada.)_
+- [x] **F3 (i18n + layout + tokens, 2026-05-26, PR #4):** next-intl v4 (`i18n/{routing,navigation,request}`,
+      `middleware.ts`, `global.d.ts`), restructure a `app/[locale]/` (+ `not-found` localizado y shim raíz),
+      tokens editoriales portados verbatim al `@theme` + `[data-theme="dark"]` de `globals.css`, fuentes vía
+      `next/font`, theming con next-themes (`attribute="data-theme"`), theme-toggle + locale-switcher,
+      shadcn lean (Button + DropdownMenu mapeados a tokens, sin paleta paralela), `messages/{es,en}.json`
+      con paridad. `code-reviewer` APPROVE-WITH-NITS; quartet + e2e + paridad i18n verdes.
+- [ ] E3: F4 (integración de diseño) — una sub-fase por sección (Hero → Projects list → Project detalle →
+      About → Experience → Contact) vía `design-integrator` + `integrate-design-section`. Checkpoint tras
+      CADA sección. _(F2 eliminada.)_
 
 ## Notas abiertas
 
+- **Limpieza candidata en F4:** al portar `chrome/Header.tsx` de v1 (switcher `[ES/EN]` inline +
+  icon-toggle), el `locale-switcher.tsx` con shadcn DropdownMenu queda obsoleto. Si nada más usa
+  DropdownMenu tras F4, eliminar el primitive `components/ui/dropdown-menu.tsx`, `locale-switcher.tsx`
+  y la dep `@radix-ui/react-dropdown-menu`. Mover los toggles a `components/layout/`.
+- **JS budget:** First Load `/[locale]` 157 kB sin comprimir ≈ 48-55 kB gzipped — holgado bajo el NFR
+  (`<150 KB gzipped`, PLAN). Medición formal de presupuesto en F5/F7.
 - PostHog MCP documentado pero no activado.
 
 > Resuelto 2026-05-25: flujo **PR-based** confirmado; `main` protegido vía ruleset (PR obligatorio +
