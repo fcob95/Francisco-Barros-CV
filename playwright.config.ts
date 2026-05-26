@@ -11,6 +11,14 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
+    // next-intl `localePrefix: 'as-needed'` negotiates the root `/` locale from
+    // Accept-Language. Pin Spanish so `/` deterministically serves ES (a real
+    // Spanish visitor); `/en` is still asserted explicitly in the specs.
+    locale: "es-CL",
+    extraHTTPHeaders: { "Accept-Language": "es-CL,es;q=0.9" },
+    // Pin light scheme so `defaultTheme="system"` resolves deterministically
+    // (the toggle's accessible name depends on the resolved theme).
+    colorScheme: "light",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {

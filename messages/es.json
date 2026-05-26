@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "contact": "Contacto"
+  },
+  "themeToggle": {
+    "label": "Cambiar tema",
+    "light": "Modo claro",
+    "dark": "Modo oscuro"
+  },
+  "localeSwitcher": {
+    "label": "Cambiar idioma",
+    "es": "Español",
+    "en": "Inglés"
+  },
+  "home": {
+    "eyebrow": "Sitio en construcción",
+    "title": "El entorno bilingüe está listo",
+    "description": "Routing i18n, tema claro/oscuro y design tokens conectados. Las secciones llegan en F4.",
+    "viewProjects": "Ver proyectos"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o cambió de dirección.",
+    "back": "Volver al inicio"
+  }
+}
