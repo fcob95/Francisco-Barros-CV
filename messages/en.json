@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact"
+  },
+  "themeToggle": {
+    "label": "Toggle theme",
+    "light": "Light mode",
+    "dark": "Dark mode"
+  },
+  "localeSwitcher": {
+    "label": "Change language",
+    "es": "Spanish",
+    "en": "English"
+  },
+  "home": {
+    "eyebrow": "Site under construction",
+    "title": "The bilingual environment is ready",
+    "description": "i18n routing, light/dark theme and design tokens are wired. Sections land in F4.",
+    "viewProjects": "View projects"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has moved.",
+    "back": "Back to home"
+  }
+}

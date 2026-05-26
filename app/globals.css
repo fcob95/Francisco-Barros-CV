@@ -1,9 +1,84 @@
 @import "tailwindcss";
 
 /*
- * Tailwind v4 CSS-first (ADR-006): los design tokens reales se portan al bloque
- * @theme en F3 desde design-assets/vN/design-tokens.ts. No hardcodear la paleta aquí.
- * Bloque vacío a propósito hasta entonces; el build es válido igual.
+ * Tailwind v4 CSS-first (ADR-006). Design tokens ported from
+ * design-assets/v1/design-tokens.ts (TAILWIND_V4_THEME_CSS) — copied by VALUE,
+ * never imported (design-assets/ is read-only). Single source of truth for the
+ * editorial palette; shadcn primitives map onto these tokens (no parallel
+ * --background/--primary system).
+ *
+ * Fonts are injected by next/font/google (app/[locale]/layout.tsx) as CSS
+ * variables (--font-instrument-serif / --font-inter / --font-jetbrains-mono);
+ * the @theme aliases below map them to the semantic display/sans/mono slots.
  */
 @theme {
+  /* ─── Colors (light defaults; dark via [data-theme="dark"]) ─── */
+  --color-paper: #f5f1eb;
+  --color-paper-raised: #fbf8f3;
+  --color-paper-sunken: #ede7dc;
+  --color-ink: #1c1917;
+  --color-ink-muted: #57534e;
+  --color-ink-soft: #78716c;
+  --color-rule: #e0d8c8;
+  --color-rule-strong: #cabfa9;
+  --color-terracotta: #d4621a;
+  --color-terracotta-ink: #9c4612;
+  --color-ocean: #0c4a6e;
+  --color-ochre: #c89d2c;
+  --color-success: #2f7a4d;
+  --color-danger: #b1331b;
+  --color-focus: #0c4a6e;
+
+  /* ─── Fonts (wired to next/font CSS variables, with the asset fallbacks) ─── */
+  --font-display:
+    var(--font-instrument-serif), "Instrument Serif", "Source Serif Pro",
+    Georgia, serif;
+  --font-sans:
+    var(--font-inter), "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-mono:
+    var(--font-jetbrains-mono), "JetBrains Mono", "SF Mono", "Menlo", monospace;
+
+  /* ─── Radii ─── */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* ─── Shadows ─── */
+  --shadow-offset: 4px 4px 0 0 #1c1917;
+  --shadow-offset-acc: 4px 4px 0 0 #d4621a;
+}
+
+[data-theme="dark"] {
+  --color-paper: #0f0d0a;
+  --color-paper-raised: #171411;
+  --color-paper-sunken: #1d1916;
+  --color-ink: #f5f1eb;
+  --color-ink-muted: #a8a29e;
+  --color-ink-soft: #78716c;
+  --color-rule: #2a2620;
+  --color-rule-strong: #3b3530;
+  --color-terracotta: #e87731;
+  --color-terracotta-ink: #f59e6b;
+  --color-ocean: #7dd3fc;
+  --color-ochre: #eab308;
+  --color-success: #86efac;
+  --color-danger: #fca5a5;
+  --color-focus: #7dd3fc;
+  --shadow-offset: 4px 4px 0 0 #f5f1eb;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* High-contrast focus ring in both modes (token-driven). */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
 }
