@@ -11,9 +11,32 @@ obsoletas, no las historiza (eso vive en `.commits/`).
 **Etapa:** E3, **F3 ✅ cerrada (2026-05-26, PR #4)**. F0/F1 cerradas (PR #1/#3). `design-assets/v1/`
 cargado (E2.5). Capa de contenido tipado (F1) + i18n next-intl (`es`/`en`, `as-needed`) + layout
 `app/[locale]/` + theming `data-theme` (next-themes) + tokens editoriales en `@theme` + shadcn lean.
-Entorno verde + CI (quartet + e2e) + `main` protegido por ruleset. Siguiente: **F4 (integración de
-diseño: portar secciones de `design-assets/v1/` a `components/sections/`, una sub-fase por sección)**.
-**Última actualización:** 2026-05-26.
+Entorno verde + CI (quartet + e2e) + `main` protegido por ruleset. Contenido reescrito a los 6
+proyectos reales del diseño + schema extendido (ADR-008, decisión 14). **F4 Bloque A ✅** (chrome
+site-wide, Hero, Projects list+detail; rutas `/projects` y `/projects/[slug]` SSG; reset global
+`prefers-reduced-motion`; eliminada dep huérfana `@radix-ui/react-dropdown-menu`). **F4 Bloque B ✅:
+About (`/about`, foto real vía next/image + 4 skill clusters) + Experience (`/experience`, timeline 3
+cargos + educación, `formatPeriod` locale-aware) portados; print CSS en `globals.css`. **F4 Bloque C ✅: Contact (`/contact`,
+RHF+Zod, estados idle/loading/success/error, errores de campo localizados + honeypot anti-spam) + ruta
+API `app/api/contact/route.ts` (Resend, Zod compartido, sin persistencia, Node runtime) + Privacy
+(`/privacy`) + 404 editorial; CookieBanner portado sin montar (para F6).\*\* **F4 ✅ COMPLETA**: todas las
+secciones de v1 portadas. Quartet verde + **e2e 10/10** contra build de producción; `code-reviewer`
+APPROVE-WITH-NITS por bloque. **F5 ✅: `app/[locale]/template.tsx` (transición de página opacity+8px,
+reduced-motion sin wrapper); auditoría reduced-motion limpia (todo gateado o cubierto por el reset CSS
+global); presupuesto JS medido — todas las rutas <50 kB gz, bajo el NFR de 150 kB. Quartet + e2e 10/10.**
+**F6 ✅: PostHog gobernado por consentimiento bloqueante (banner `fb-cookies`), eventos tipados en
+`lib/analytics/events.ts` (los 7 del §6) vía helpers `track.*` con chokepoint único que no-opea sin init,
+listener delegado sobre `data-event`, hooks scroll_depth/time_on_page, opt-out (Footer reabre banner),
+config privacy-safe (sin autocapture/recording, DNT, cookieless); IP cruda se descarta vía toggle manual
+de PostHog (TODO_MANUALES §3.1, ADR-007). +14 tests de analítica (40 total). `code-reviewer`
+APPROVE-WITH-NITS (slug de `project_link_click` corregido).** **F7 ✅: metadata dinámica por página
+(`generateMetadata` + helper `lib/seo/`), title template, canonical + hreflang (es/en/x-default),
+`app/sitemap.ts` + `app/robots.ts`, JSON-LD (Person en home/about, CreativeWork en detalle), OG dinámico
+vía `next/og` (`opengraph-image` por locale + por proyecto, con fallback de fuentes que no rompe), `<h1>`
+sr-only por página (a11y: exactamente un h1 por página). +17 tests SEO (57 total). `code-reviewer`
+APPROVE-WITH-NITS (fix bloqueante de lint: `eslint` ahora ignora `playwright-report/`/`test-results/`).**
+**ALCANCE F4→F7 COMPLETO**: sitio listo para producción (sin desplegar). Quartet verde + e2e 10/10.
+**Última actualización:** 2026-05-28.
 
 > Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
@@ -53,6 +76,13 @@ diseño: portar secciones de `design-assets/v1/` a `components/sections/`, una s
     repos privados; público los habilita gratis. Se verificó que la historia no contiene secretos (solo
     placeholders en `.env.example`). `main` protegido por **ruleset** (id 16886707): PR obligatorio,
     checks `quality` y `e2e` en verde, sin push directo ni force-push. Flujo PR-based confirmado.
+14. **Diseño v1 = fuente de verdad de shapes; schema extendido más allá del DESIGN_BRIEF §3
+    (2026-05-27, ADR-008):** Francisco ratificó que `design-assets/v1/` es la versión de producción del
+    front. El diseño usa campos fuera del §3 original (`kind`, `company`, `primaryMetric`, `status` en
+    proyectos; `headline`, `stats`, `trustCompanies` en perfil; entidades nuevas `Skills` y `Education`).
+    Se **extendió el schema Zod** para soportarlos (respaldados por datos reales, mapeables a Sanity). El
+    schema —no el §3— pasa a ser la fuente de verdad de la forma; `DESIGN_BRIEF.md` queda intacto como
+    artefacto histórico. Detalle en `ARCHITECTURE.md` ADR-008.
 
 - [x] Cerrar scaffolding E2 (docs + `.claude/` + CLAUDE.md jerárquicos + design-assets).
 - [x] Gate E2 → aprobado por Francisco (2026-05-25).
@@ -90,19 +120,72 @@ test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vites
       `next/font`, theming con next-themes (`attribute="data-theme"`), theme-toggle + locale-switcher,
       shadcn lean (Button + DropdownMenu mapeados a tokens, sin paleta paralela), `messages/{es,en}.json`
       con paridad. `code-reviewer` APPROVE-WITH-NITS; quartet + e2e + paridad i18n verdes.
-- [ ] E3: F4 (integración de diseño) — una sub-fase por sección (Hero → Projects list → Project detalle →
-      About → Experience → Contact) vía `design-integrator` + `integrate-design-section`. Checkpoint tras
-      CADA sección. _(F2 eliminada.)_
+- [x] **Contenido real + schema extendido (2026-05-27, decisión 14 / ADR-008):** `data-layer` reescribió
+      `content/` a los 6 proyectos reales del diseño v1 (`trustonic-movistar`, `ndc-cocha-travel`,
+      `marketplace-integration-skinautica`, `ai-reporting-skinautica`, `finanzas-flow`, `real-estate-chile`),
+      perfil/experiencia reales, + nuevas entidades `Skills`/`Education`. Schema Zod extendido (`kind`,
+      `company`, `primaryMetric`, `status`, `headline`, `stats`, `trustCompanies`). `getSkills`/`getEducation`
+      añadidos. 26 tests Vitest. `code-reviewer` APPROVE-WITH-NITS (finding #1 rechazado con fundamento:
+      `z.object()` hace strip por defecto → `getProjects` ya devuelve card-only). Quartet verde.
+- [x] **F4 (integración de diseño, 2026-05-27) ✅** — 3 bloques vía `design-integrator`: **A** (chrome
+      site-wide + Hero + Projects list/detail + rutas SSG), **B** (About con foto real + Experience timeline + educación + print CSS), **C** (Contact RHF+Zod con errores localizados + honeypot + ruta API Resend
+      sin persistencia + Privacy + 404 editorial; CookieBanner portado sin montar para F6). Todas las
+      secciones de v1 portadas (porte por valor, sin importar `design-assets/`). e2e extendido a las páginas
+      nuevas → **10/10** contra build de producción. Quartet verde. `code-reviewer` APPROVE-WITH-NITS por
+      bloque. _(F2 eliminada.)_
+- [x] **F5 (animación, 2026-05-27) ✅** — `template.tsx` con transición de página reduced-motion-safe;
+      auditoría de animaciones (todo gateado por `useReducedMotion` o cubierto por el reset CSS global);
+      presupuesto JS verificado (<50 kB gz/ruta). Quartet + e2e 10/10.
+- [x] **F6 (analítica, 2026-05-28) ✅** — PostHog consent-gated (banner bloqueante para init), eventos
+      tipados (`track.*`, chokepoint único no-op sin consentimiento), listener delegado + hooks
+      scroll/time, opt-out, config privacy-safe; IP cruda vía toggle manual PostHog (ADR-007). 40 tests.
+      Quartet + e2e 10/10. Pageview de PostHog (`$pageview`/`$pageleave`) intencionalmente activo
+      (solo URL, sin PII) — no está en el catálogo tipado por ser default de la plataforma.
+- [x] **F7 (SEO + a11y, 2026-05-28) ✅** — metadata dinámica/localizada por página, canonical + hreflang,
+      sitemap + robots, JSON-LD (Person/CreativeWork), OG dinámico `next/og`, `<h1>` por página. +17 tests
+      SEO (57 total). Fix de lint (ignorar artefactos Playwright). Quartet + e2e 10/10.
+- [x] **ALCANCE ACORDADO (F4→F7) COMPLETO (2026-05-28).** Sitio funcional y listo para producción, sin
+      desplegar. **Pendiente fuera de alcance:** F8 (deploy a Vercel + dominio) cuando Francisco lo decida;
+      ítems manuales en `TODO_MANUALES.md`; nits diferidos abajo. **Aún no se ha hecho commit** (a pedido).
+- [ ] (Opcional/futuro) **F8 deploy** + nits diferidos (regex leading-slash en `ImageSchema.src`,
+      rate-limiting de `/api/contact`, validación visual final por Francisco).
 
 ## Notas abiertas
 
-- **Limpieza candidata en F4:** al portar `chrome/Header.tsx` de v1 (switcher `[ES/EN]` inline +
-  icon-toggle), el `locale-switcher.tsx` con shadcn DropdownMenu queda obsoleto. Si nada más usa
-  DropdownMenu tras F4, eliminar el primitive `components/ui/dropdown-menu.tsx`, `locale-switcher.tsx`
-  y la dep `@radix-ui/react-dropdown-menu`. Mover los toggles a `components/layout/`.
+- **Limpieza F4 (✅ hecha en Bloque A):** al portar `chrome/Header.tsx` (switcher `[ES/EN]` + theme
+  toggle inline), se eliminaron `components/theme-toggle.tsx`, `components/locale-switcher.tsx`,
+  `components/ui/dropdown-menu.tsx` y la dep `@radix-ui/react-dropdown-menu` (nada los usaba).
+- **Nits diferidos de Bloque A (`code-reviewer`):** labels editoriales en inglés en locale ES
+  (`01 / Home`, `03 / Projects`, textos dentro de SVG `aria-hidden`) — pendiente confirmar con Francisco
+  si es intencional (voz del diseño). `projects.intro` fija el conteo 4/2 en prosa (riesgo de quedar
+  obsoleto). Claves i18n sembradas sin uso aún (`section.featured/allProjects/...`, `cta.viewProject`).
+  Hero detail fallback `CASE STUDY · {slug}` hardcodeado (SVG decorativo, se reemplaza con arte real).
+- **Diferido a F7 (a11y/SEO):** `/projects`, `/about`, `/experience` no tienen `<h1>` (empiezan en `<h2>`;
+  Hero y `/projects/[slug]` sí tienen `<h1>`). Resolver con `<h1 sr-only>` por página en el paso de SEO,
+  de forma consistente, sin alterar el diseño editorial. (WCAG 2.4.6 / 1.3.1.)
+- **Contacto — anti-abuso (decidido diferir, Bloque C):** la ruta `/api/contact` tiene validación Zod +
+  caps de longitud + honeypot (`company`) que descarta bots en silencio, pero **no tiene rate-limiting**.
+  Riesgo aceptado para v1 (un atacante podría inundar el inbox / quemar cuota Resend). Mitigación futura:
+  Vercel rate limit / `@upstash/ratelimit` o Cloudflare Turnstile. El literal del email en `contact.error`
+  (mensajes) duplica `profile.email` — actualizar ambos al confirmar el correo real (ver `TODO_MANUALES.md`).
+- **Nits diferidos de Bloque B (`code-reviewer`):** `companySlugFor` en `Experience.tsx` tiene una rama
+  de fallback muerta (inofensiva, degrada a sin-icono). `formatPeriod` no valida `YYYY-MM` malformado;
+  considerar regex en `ExperiencePeriodSchema` (fail-fast en el borde). La rama `period.present` está
+  cableada pero ningún dato la ejercita aún.
+- **Pendiente F4-close:** extender specs e2e a las páginas nuevas (`/projects`, `/about`, `/experience`,
+  `/contact`).
 - **JS budget:** First Load `/[locale]` 157 kB sin comprimir ≈ 48-55 kB gzipped — holgado bajo el NFR
   (`<150 KB gzipped`, PLAN). Medición formal de presupuesto en F5/F7.
 - PostHog MCP documentado pero no activado.
+- **Auditoría de seguridad (2026-05-28, `SECURITY_AUDIT.md`):** revisión estática del repo público de cara
+  al deploy en Vercel. Sin críticos. 2 medios (rate-limit en `/api/contact` — ver nota anti-abuso arriba;
+  faltan security headers en `next.config.ts`) + 3 bajos (`postcss <8.5.10` transitiva build-time, GHSA-qx2v-qp2m-jg93;
+  PII pública en PDFs de `public/cv/`; descarte de IP en PostHog es toggle manual, `TODO_MANUALES.md` §3.1).
+  **Pre-deploy obligatorio:** cerrar rate-limit + activar descarte de IP. Headers → encajan en F7.
+- **GA re-evaluado y descartado (2026-05-28):** Francisco preguntó por Google Analytics; ratificada la
+  decisión #1 (**PostHog Cloud only**). GA es anti-patrón en los `CLAUDE.md` y añadiría cookies + IP +
+  doble superficie de consentimiento. Si se quiere "vista Google" de SEO, la vía liviana es Search Console
+  (sin código/cookies), no GA.
 
 > Resuelto 2026-05-25: flujo **PR-based** confirmado; `main` protegido vía ruleset (PR obligatorio +
 > checks `quality`/`e2e` en verde). El log de commits manuales se cubre con `.githooks/pre-commit`.
