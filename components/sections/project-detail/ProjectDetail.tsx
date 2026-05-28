@@ -20,7 +20,14 @@
  * fallback (real <Image> deferred until art exists).
  */
 
-import { ArrowLeft, ArrowUpRight, Code, Github } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowUpRight,
+  Code,
+  Download,
+  Github,
+} from "lucide-react";
 
 import { Link } from "@/i18n/navigation";
 import type { ProjectDetailCopy, ProjectDetailView } from "./types";
@@ -94,7 +101,12 @@ export function ProjectDetail({ project: p, copy }: ProjectDetailProps) {
         className="relative w-full mb-12 md:mb-16 border border-ink bg-paper-raised overflow-hidden"
         style={{ aspectRatio: "16 / 7" }}
       >
-        <DetailHeroFallback year={p.year} slug={p.slug} accent={accent} />
+        <DetailHeroFallback
+          year={p.year}
+          slug={p.slug}
+          kind={p.kind}
+          accent={accent}
+        />
       </div>
 
       {/* Two-column body */}
@@ -163,6 +175,55 @@ export function ProjectDetail({ project: p, copy }: ProjectDetailProps) {
                   </div>
                 ))}
               </div>
+            </section>
+          )}
+
+          {p.downloads.length > 0 && (
+            <section aria-labelledby="downloads-title">
+              <div className="flex items-baseline gap-3 mb-5">
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-soft">
+                  05
+                </span>
+                <h2
+                  id="downloads-title"
+                  className="font-display text-2xl md:text-3xl tracking-[-0.01em]"
+                >
+                  {copy.downloads}
+                </h2>
+              </div>
+              <ul className="space-y-3">
+                {p.downloads.map((d) => (
+                  <li key={d.file}>
+                    <a
+                      href={d.file}
+                      download
+                      data-event="document_download"
+                      data-id={d.file}
+                      className="group flex items-start gap-4 p-4 bg-paper-raised border border-rule hover:border-rule-strong transition-colors rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                    >
+                      <span
+                        aria-hidden
+                        className="mt-0.5 text-ink-muted group-hover:text-terracotta-ink"
+                      >
+                        <Download size={18} />
+                      </span>
+                      <span className="flex-1">
+                        <span className="block text-[15px] font-medium text-ink">
+                          {d.label}
+                        </span>
+                        <span className="mt-1 block text-[13px] leading-relaxed text-ink-muted">
+                          {d.summary}
+                        </span>
+                      </span>
+                      <ArrowDown
+                        size={16}
+                        aria-hidden
+                        className="mt-1 flex-shrink-0 text-ink-soft group-hover:text-ink"
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </section>
           )}
         </div>
@@ -266,10 +327,12 @@ function ExternalLink({
 function DetailHeroFallback({
   year,
   slug,
+  kind,
   accent,
 }: {
   year: number;
   slug: string;
+  kind: "case-study" | "side-project";
   accent: string;
 }) {
   return (
@@ -331,7 +394,8 @@ function DetailHeroFallback({
         fill="var(--color-ink-muted)"
         letterSpacing={2}
       >
-        CASE STUDY · {slug.toUpperCase()}
+        {kind === "case-study" ? "CASE STUDY" : "SIDE PROJECT"} ·{" "}
+        {slug.toUpperCase()}
       </text>
     </svg>
   );

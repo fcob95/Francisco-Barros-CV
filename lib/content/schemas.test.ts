@@ -10,6 +10,8 @@ import { marketplaceIntegrationSkinautica } from "@/content/projects/marketplace
 import { aiReportingSkinautica } from "@/content/projects/ai-reporting-skinautica";
 import { finanzasFlow } from "@/content/projects/finanzas-flow";
 import { realEstateChile } from "@/content/projects/real-estate-chile";
+import { aiOrchestratedPortfolio } from "@/content/projects/ai-orchestrated-portfolio";
+import { aiLearningGuides } from "@/content/projects/ai-learning-guides";
 import {
   EducationSchema,
   ExperienceItemSchema,
@@ -25,6 +27,8 @@ const allProjects = [
   ndcCochaTravel,
   marketplaceIntegrationSkinautica,
   aiReportingSkinautica,
+  aiOrchestratedPortfolio,
+  aiLearningGuides,
   finanzasFlow,
   realEstateChile,
 ];
@@ -112,8 +116,8 @@ describe("seed parses against schemas", () => {
 });
 
 describe("seed business rules", () => {
-  it("has exactly six projects", () => {
-    expect(allProjects.length).toBe(6);
+  it("has exactly eight projects", () => {
+    expect(allProjects.length).toBe(8);
   });
 
   it("has the two expected featured projects", () => {

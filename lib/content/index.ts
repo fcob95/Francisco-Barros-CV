@@ -10,6 +10,8 @@ import { marketplaceIntegrationSkinautica } from "@/content/projects/marketplace
 import { aiReportingSkinautica } from "@/content/projects/ai-reporting-skinautica";
 import { finanzasFlow } from "@/content/projects/finanzas-flow";
 import { realEstateChile } from "@/content/projects/real-estate-chile";
+import { aiOrchestratedPortfolio } from "@/content/projects/ai-orchestrated-portfolio";
+import { aiLearningGuides } from "@/content/projects/ai-learning-guides";
 
 import {
   EducationSchema,
@@ -53,6 +55,8 @@ const projectSeeds: readonly unknown[] = [
   ndcCochaTravel,
   marketplaceIntegrationSkinautica,
   aiReportingSkinautica,
+  aiOrchestratedPortfolio,
+  aiLearningGuides,
   finanzasFlow,
   realEstateChile,
 ];

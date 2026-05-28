@@ -41,6 +41,11 @@ export async function ProjectDetailContainer({
       label: pick(locale, m.label),
     })),
     links: p.links,
+    downloads: (p.downloads ?? []).map((d) => ({
+      file: d.file,
+      label: pick(locale, d.label),
+      summary: pick(locale, d.summary),
+    })),
   };
 
   const copy: ProjectDetailCopy = {
@@ -54,6 +59,7 @@ export async function ProjectDetailContainer({
     solution: tSection("solution"),
     impact: tSection("impact"),
     metrics: tSection("metrics"),
+    downloads: tSection("downloads"),
     backToProjects: tCta("backToProjects"),
     viewRepo: tCta("viewRepo"),
     viewDemo: tCta("viewDemo"),

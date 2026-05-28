@@ -54,6 +54,20 @@ test("privacy renders the policy", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("learning-guides project exposes downloadable study material", async ({
+  page,
+}) => {
+  await page.goto("/projects/ai-learning-guides");
+  await expect(
+    page.getByRole("heading", { name: es.section.downloads }),
+  ).toBeVisible();
+  const guide = page
+    .getByRole("link", { name: /MCP — Guía de estudio/ })
+    .first();
+  await expect(guide).toBeVisible();
+  await expect(guide).toHaveAttribute("href", "/downloads/MCP.pdf");
+});
+
 test("unknown route renders the editorial 404", async ({ page }) => {
   await page.goto("/this-route-does-not-exist");
   await expect(page.getByText(es.notFound.title)).toBeVisible();

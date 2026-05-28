@@ -146,7 +146,14 @@ test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vites
       SEO (57 total). Fix de lint (ignorar artefactos Playwright). Quartet + e2e 10/10.
 - [x] **ALCANCE ACORDADO (F4→F7) COMPLETO (2026-05-28).** Sitio funcional y listo para producción, sin
       desplegar. **Pendiente fuera de alcance:** F8 (deploy a Vercel + dominio) cuando Francisco lo decida;
-      ítems manuales en `TODO_MANUALES.md`; nits diferidos abajo. **Aún no se ha hecho commit** (a pedido).
+      ítems manuales en `TODO_MANUALES.md`; nits diferidos abajo.
+- [x] **Portafolio ampliado (2026-05-28):** +2 proyectos → 8 total: `ai-orchestrated-portfolio`
+      ("este sitio + su orquestador") y `ai-learning-guides` (3 guías de estudio MCP/Agent SDK/Skills,
+      descargables). **Nueva capacidad reusable `downloads[]`** en `ProjectDetail` (schema + bloque
+      "Descargas" en el detalle + evento `document_download`). PDFs en `public/downloads/` (revisados:
+      seguros, sanitizados, atribuidos). Fix: visual fallback neutro (`frame`) + hero del detalle por
+      `kind` + composiciones `agents`/`docs`. Quartet + e2e 11/11. Contenido redactado por Claude,
+      revisado por Francisco.
 - [ ] (Opcional/futuro) **F8 deploy** + nits diferidos (regex leading-slash en `ImageSchema.src`,
       rate-limiting de `/api/contact`, validación visual final por Francisco).
 

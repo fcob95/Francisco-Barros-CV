@@ -103,6 +103,15 @@ export const ProjectLinksSchema = z.object({
 });
 export type ProjectLinks = z.infer<typeof ProjectLinksSchema>;
 
+/** A downloadable file attached to a project (e.g. a study-guide PDF). */
+export const ProjectDownloadSchema = z.object({
+  /** Path under /public, served from the site root (e.g. "/downloads/x.pdf"). */
+  file: z.string().min(1).startsWith("/"),
+  label: LocalizedSchema,
+  summary: LocalizedSchema,
+});
+export type ProjectDownload = z.infer<typeof ProjectDownloadSchema>;
+
 export const ProjectDetailSchema = ProjectCardSchema.extend({
   role: LocalizedSchema,
   problem: LocalizedSchema,
@@ -112,6 +121,8 @@ export const ProjectDetailSchema = ProjectCardSchema.extend({
   gallery: z.array(ImageSchema),
   metrics: z.array(ProjectMetricSchema),
   links: ProjectLinksSchema,
+  /** Optional downloadable material (e.g. study guides). */
+  downloads: z.array(ProjectDownloadSchema).optional(),
 });
 export type ProjectDetail = z.infer<typeof ProjectDetailSchema>;
 

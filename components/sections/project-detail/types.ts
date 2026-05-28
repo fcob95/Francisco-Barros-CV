@@ -12,6 +12,13 @@ export interface DetailMetricView {
   label: string;
 }
 
+/** A downloadable file, locale-resolved. */
+export interface DetailDownloadView {
+  file: string;
+  label: string;
+  summary: string;
+}
+
 /** A project detail, fully locale-resolved for rendering. */
 export interface ProjectDetailView {
   slug: string;
@@ -28,6 +35,7 @@ export interface ProjectDetailView {
   impact: string;
   metrics: DetailMetricView[];
   links: { repo?: string; demo?: string };
+  downloads: DetailDownloadView[];
 }
 
 /** Resolved labels for the detail chrome. */
@@ -42,6 +50,7 @@ export interface ProjectDetailCopy {
   solution: string;
   impact: string;
   metrics: string;
+  downloads: string;
   backToProjects: string;
   viewRepo: string;
   viewDemo: string;

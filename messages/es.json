@@ -44,7 +44,8 @@
     "skills": "Capacidades",
     "experience": "Experiencia profesional",
     "education": "Educación",
-    "location": "Ubicación"
+    "location": "Ubicación",
+    "downloads": "Descargas"
   },
   "badge": {
     "caseStudy": "Case study",

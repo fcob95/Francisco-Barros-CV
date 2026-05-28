@@ -21,7 +21,7 @@ export function ProjectVisual({ slug, kind, featured }: ProjectVisualProps) {
   const defaultAccent =
     kind === "case-study" ? "var(--color-terracotta)" : "var(--color-ocean)";
   const c = compositions[slug] ?? {
-    type: "stack" as const,
+    type: "frame" as const,
     accent: defaultAccent,
   };
   const accent = c.accent;
@@ -46,6 +46,9 @@ export function ProjectVisual({ slug, kind, featured }: ProjectVisualProps) {
         {c.type === "stack" && <StackComposition accent={accent} />}
         {c.type === "bars" && <BarsComposition accent={accent} />}
         {c.type === "map" && <MapComposition accent={accent} />}
+        {c.type === "agents" && <AgentsComposition accent={accent} />}
+        {c.type === "frame" && <FrameComposition accent={accent} />}
+        {c.type === "docs" && <DocsComposition accent={accent} />}
       </svg>
     </div>
   );
@@ -55,7 +58,16 @@ export function ProjectVisual({ slug, kind, featured }: ProjectVisualProps) {
 // Per-slug composition map
 // ─────────────────────────────────────────────────────────────────────────────
 
-type CompositionType = "shield" | "flight" | "nodes" | "stack" | "bars" | "map";
+type CompositionType =
+  | "shield"
+  | "flight"
+  | "nodes"
+  | "stack"
+  | "bars"
+  | "map"
+  | "agents"
+  | "frame"
+  | "docs";
 
 const compositions: Record<string, { type: CompositionType; accent: string }> =
   {
@@ -71,11 +83,157 @@ const compositions: Record<string, { type: CompositionType; accent: string }> =
     },
     "finanzas-flow": { type: "bars", accent: "var(--color-ocean)" },
     "real-estate-chile": { type: "map", accent: "var(--color-ocean)" },
+    "ai-orchestrated-portfolio": {
+      type: "agents",
+      accent: "var(--color-ocean)",
+    },
+    "ai-learning-guides": { type: "docs", accent: "var(--color-ocean)" },
   };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Compositions
 // ─────────────────────────────────────────────────────────────────────────────
+
+/** Orchestrator: a core node wired to satellite agents. */
+function AgentsComposition({ accent }: { accent: string }) {
+  const satellites: Array<[number, number]> = [
+    [95, 55],
+    [115, 150],
+    [200, 38],
+    [285, 55],
+    [305, 150],
+  ];
+  return (
+    <>
+      {satellites.map(([x, y], i) => (
+        <line
+          key={`e${i}`}
+          x1={200}
+          y1={100}
+          x2={x}
+          y2={y}
+          stroke="var(--color-ink)"
+          strokeWidth={0.8}
+          opacity={0.45}
+        />
+      ))}
+      {satellites.map(([x, y], i) => (
+        <circle
+          key={`n${i}`}
+          cx={x}
+          cy={y}
+          r={13}
+          fill="var(--color-paper-raised)"
+          stroke="var(--color-ink)"
+          strokeWidth={1}
+        />
+      ))}
+      <circle cx={200} cy={100} r={26} fill={accent} opacity={0.12} />
+      <circle
+        cx={200}
+        cy={100}
+        r={26}
+        fill="var(--color-paper-raised)"
+        fillOpacity={0}
+        stroke={accent}
+        strokeWidth={2}
+      />
+      <text
+        x={200}
+        y={104}
+        textAnchor="middle"
+        fontFamily="JetBrains Mono, monospace"
+        fontSize={9}
+        fill="var(--color-ink)"
+        fontWeight={600}
+      >
+        CORE
+      </text>
+      <text
+        x={200}
+        y={190}
+        textAnchor="middle"
+        fontFamily="JetBrains Mono, monospace"
+        fontSize={9}
+        fill="var(--color-ink-muted)"
+        letterSpacing={1.4}
+      >
+        ORCHESTRATOR · 5 AGENTS
+      </text>
+    </>
+  );
+}
+
+/** Neutral fallback for slugs without a bespoke composition — no metric text. */
+function FrameComposition({ accent }: { accent: string }) {
+  return (
+    <>
+      <rect
+        x={118}
+        y={50}
+        width={164}
+        height={100}
+        fill="var(--color-paper-raised)"
+        stroke="var(--color-ink)"
+        strokeWidth={1.5}
+      />
+      <rect
+        x={130}
+        y={62}
+        width={164}
+        height={100}
+        fill="none"
+        stroke={accent}
+        strokeWidth={1.5}
+        opacity={0.6}
+      />
+    </>
+  );
+}
+
+/** Downloadable study material: a stack of document pages + a download badge. */
+function DocsComposition({ accent }: { accent: string }) {
+  return (
+    <>
+      {[0, 1, 2].map((i) => (
+        <rect
+          key={i}
+          x={120 + i * 18}
+          y={40 + i * 14}
+          width={150}
+          height={120}
+          fill="var(--color-paper-raised)"
+          stroke={i === 2 ? accent : "var(--color-ink)"}
+          strokeWidth={i === 2 ? 1.5 : 0.8}
+          opacity={i === 2 ? 1 : 0.55}
+        />
+      ))}
+      {[0, 1, 2, 3].map((i) => (
+        <line
+          key={`t${i}`}
+          x1={170}
+          y1={84 + i * 16}
+          x2={i === 3 ? 228 : 256}
+          y2={84 + i * 16}
+          stroke="var(--color-ink-muted)"
+          strokeWidth={2}
+          opacity={0.55}
+        />
+      ))}
+      <g transform="translate(298 150)">
+        <circle r={16} fill={accent} opacity={0.15} />
+        <path
+          d="M0 -7 L0 6 M-5 1 L0 6 L5 1"
+          fill="none"
+          stroke={accent}
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+    </>
+  );
+}
 
 function ShieldComposition({ accent }: { accent: string }) {
   return (

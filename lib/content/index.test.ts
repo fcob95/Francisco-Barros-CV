@@ -28,9 +28,9 @@ describe("getProfile", () => {
 });
 
 describe("getProjects", () => {
-  it("returns the six schema-valid ProjectCards", async () => {
+  it("returns the eight schema-valid ProjectCards", async () => {
     const projects = await getProjects();
-    expect(projects.length).toBe(6);
+    expect(projects.length).toBe(8);
     for (const card of projects) {
       expect(() => ProjectCardSchema.parse(card)).not.toThrow();
       expect(card.primaryMetric.value.length).toBeGreaterThan(0);
