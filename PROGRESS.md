@@ -155,6 +155,12 @@ test` roto por contaminación de `postcss.config.mjs` hacia el pipeline de Vites
 - **Limpieza F4 (✅ hecha en Bloque A):** al portar `chrome/Header.tsx` (switcher `[ES/EN]` + theme
   toggle inline), se eliminaron `components/theme-toggle.tsx`, `components/locale-switcher.tsx`,
   `components/ui/dropdown-menu.tsx` y la dep `@radix-ui/react-dropdown-menu` (nada los usaba).
+- **shadcn sin uso en la UI viva (limpieza 2026-05-28):** el diseño v1 portado usa sus propios
+  `<button>`/`<a>` estilizados, así que la `Button` de shadcn (montada en F3) quedó huérfana. Se
+  eliminaron `components/ui/button.tsx`, `lib/utils.ts` (`cn`) y las deps `@radix-ui/react-slot`,
+  `class-variance-authority`, `clsx`, `tailwind-merge`. `components.json` se conserva: re-agregar shadcn
+  más adelante es `pnpm dlx shadcn add <comp>` (recrea `cn`/deps). Matiz: el stack en CLAUDE.md aún lista
+  "shadcn/ui", pero hoy no hay componentes shadcn en la UI renderizada.
 - **Nits diferidos de Bloque A (`code-reviewer`):** labels editoriales en inglés en locale ES
   (`01 / Home`, `03 / Projects`, textos dentro de SVG `aria-hidden`) — pendiente confirmar con Francisco
   si es intencional (voz del diseño). `projects.intro` fija el conteo 4/2 en prosa (riesgo de quedar
