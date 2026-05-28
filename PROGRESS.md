@@ -57,7 +57,10 @@ APPROVE-WITH-NITS (fix bloqueante de lint: `eslint` ahora ignora `playwright-rep
    **Detección de idioma activa** (`localeDetection: true`, default de next-intl, ratificado 2026-05-26):
    `/` es la URL canónica en ES, pero un navegador con `Accept-Language: en` se redirige a `/en`. El
    idioma también es conmutable vía el switcher. ("ES raíz" = ES sin prefijo, no "siempre español en `/`".)
-6. **Dominio:** placeholder `https://franciscobarros.cl` vía `NEXT_PUBLIC_SITE_URL`.
+6. **Dominio (2026-05-28):** producción en Vercel bajo `www.franciscobarroscruz.com`. El fallback de
+   `SITE_URL` (`lib/seo/site.ts`) usa ese dominio real (no el placeholder viejo `.cl`), así canonical/
+   sitemap/OG salen correctos aunque falte `NEXT_PUBLIC_SITE_URL` en el deploy. La env var sigue
+   sobreescribiendo el fallback si se setea.
 7. **Contacto:** solo email vía Resend, sin persistencia.
 8. **Contenido:** seed bilingüe realista; reemplazo posterior editando `content/`.
 9. **Patrón de diseño:** presentacional + contenedor.

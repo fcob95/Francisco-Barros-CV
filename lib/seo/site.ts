@@ -9,13 +9,13 @@ import type { Locale } from "@/lib/content";
  */
 
 /**
- * Site origin, no trailing slash. Sourced from `NEXT_PUBLIC_SITE_URL` (set in
- * `.env.local`; placeholder `https://franciscobarros.cl`). Falls back to the
- * placeholder so metadata/sitemap never emit a relative or empty base during a
- * build that lacks the env (e.g. CI without secrets).
+ * Site origin, no trailing slash. Sourced from `NEXT_PUBLIC_SITE_URL` when set
+ * (Vercel env / `.env.local`); otherwise falls back to the production domain so
+ * metadata/sitemap/canonical always emit the real origin even on a build without
+ * the env (e.g. CI, or a deploy that hasn't set it). The env still overrides this.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://franciscobarros.cl"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.franciscobarroscruz.com"
 ).replace(/\/$/, "");
 
 /** Normalize a logical path to a leading-slash, no-trailing-slash form. "" → "/". */
