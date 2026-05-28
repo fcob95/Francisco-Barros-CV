@@ -5,7 +5,7 @@
 >
 > **Estados:** ✅ hecho · 🟡 en curso · ⚪ pendiente · 🔴 bloqueado
 
-**Última actualización:** 2026-05-26 · **Etapa actual:** E3 — **F3 ✅ cerrada** (i18n next-intl + layout `[locale]` + theming + tokens editoriales en `@theme` + shadcn lean; PR #4, quartet/e2e verdes); siguiente: F4 (integración de diseño, sección por sección)
+**Última actualización:** 2026-05-27 · **Etapa actual:** E3 — F3 ✅ + contenido real/schema (ADR-008) + **F4 ✅ COMPLETA** (A: chrome+Hero+Projects · B: About+Experience · C: Contact+API Resend+Privacy+404; CookieBanner portado sin montar). Todas las secciones de v1 portadas; **e2e 10/10** contra build prod; `code-reviewer` APPROVE-WITH-NITS por bloque. **F5 ✅** (transición + JS budget) · **F6 ✅** (PostHog consent-gated, eventos tipados, opt-out) · **F7 ✅** (SEO completo: metadata/sitemap/robots/hreflang/JSON-LD/OG + h1 a11y; 57 tests). **ALCANCE F4→F7 COMPLETO** — sitio listo para producción, sin desplegar; quartet + e2e 10/10. Pendiente fuera de alcance: **F8 (deploy Vercel)** cuando se decida, ítems de `TODO_MANUALES.md`, y commit (a pedido, no hecho aún).
 
 ## Orden de lectura para retomar
 

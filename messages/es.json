@@ -6,25 +6,139 @@
     "experience": "Experiencia",
     "contact": "Contacto"
   },
-  "themeToggle": {
-    "label": "Cambiar tema",
-    "light": "Modo claro",
-    "dark": "Modo oscuro"
+  "header": {
+    "brand": "Francisco Barros",
+    "language": "Idioma",
+    "toLight": "Cambiar a tema claro",
+    "toDark": "Cambiar a tema oscuro",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   },
-  "localeSwitcher": {
-    "label": "Cambiar idioma",
-    "es": "Español",
-    "en": "Inglés"
+  "cta": {
+    "viewProjects": "Ver proyectos",
+    "downloadCv": "Descargar CV",
+    "contact": "Contacto",
+    "backToProjects": "Volver a proyectos",
+    "viewRepo": "Ver repo",
+    "viewDemo": "Ver demo",
+    "readMore": "Leer caso",
+    "viewProject": "Ver proyecto",
+    "sendMessage": "Enviar mensaje"
   },
-  "home": {
-    "eyebrow": "Sitio en construcción",
-    "title": "El entorno bilingüe está listo",
-    "description": "Routing i18n, tema claro/oscuro y design tokens conectados. Las secciones llegan en F4.",
-    "viewProjects": "Ver proyectos"
+  "section": {
+    "featured": "Trabajo destacado",
+    "allProjects": "Todos los proyectos",
+    "caseStudies": "Case studies",
+    "sideProjects": "Side projects",
+    "problem": "Problema",
+    "solution": "Solución",
+    "impact": "Impacto",
+    "metrics": "Métricas",
+    "stack": "Stack",
+    "role": "Rol",
+    "year": "Año",
+    "tags": "Tags",
+    "filterBy": "Filtrar por",
+    "all": "Todos",
+    "nothing": "No hay proyectos con ese filtro.",
+    "skills": "Capacidades",
+    "experience": "Experiencia profesional",
+    "education": "Educación",
+    "location": "Ubicación",
+    "downloads": "Descargas"
+  },
+  "badge": {
+    "caseStudy": "Case study",
+    "sideProject": "Side project",
+    "featured": "Featured",
+    "wip": "En desarrollo"
+  },
+  "projects": {
+    "title": "Trabajo seleccionado.",
+    "intro": "Cuatro case studies de implementaciones con impacto medible, y dos side projects donde experimento con stack propio.",
+    "total": "total",
+    "cardAriaPrefix": "Abrir proyecto: "
+  },
+  "hero": {
+    "kicker": "Portfolio · 2026",
+    "available": "Disponible para proyectos",
+    "experienceAt": "Experiencia en",
+    "pillarsLabel": "Pilares ↘",
+    "scroll": "Desliza para explorar",
+    "pillar1": "Pricing Strategy",
+    "pillar2": "Revenue Analytics",
+    "pillar3": "AI-Augmented Decision Making",
+    "pillar1Short": "Pricing",
+    "pillar2Short": "Revenue",
+    "pillar3Short": "AI",
+    "pillar1Kicker": "Estrategia",
+    "pillar2Kicker": "Datos",
+    "pillar3Kicker": "IA aplicada",
+    "pillar1Bullet1": "Modelos de elasticidad",
+    "pillar1Bullet2": "Mix comercial",
+    "pillar1Bullet3": "Pricing dinámico (NDC)",
+    "pillar2Bullet1": "Dashboards ejecutivos",
+    "pillar2Bullet2": "Forecasting & demanda",
+    "pillar2Bullet3": "Rentabilidad por canal",
+    "pillar3Bullet1": "Claude · ChatGPT · Gemini",
+    "pillar3Bullet2": "Agentes y orquestación",
+    "pillar3Bullet3": "Workflows analíticos"
+  },
+  "period": {
+    "present": "Presente"
+  },
+  "about": {
+    "whoIAm": "Quién soy",
+    "lead": "Pienso en negocios como sistemas que pueden modelarse, instrumentarse y aprender.",
+    "context": "Mi trabajo cruza pricing, datos y workflows de IA aplicada en retail, telecom y travel.",
+    "yearsExperience": "4+ años de experiencia"
+  },
+  "contact": {
+    "title": "Hablemos.",
+    "lead": "Mejor por correo. Respondo en menos de 24 horas en días hábiles.",
+    "stripNote": "Por correo, mejor",
+    "nameLabel": "Nombre",
+    "emailLabel": "Correo",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Cuéntame brevemente qué tienes en mente…",
+    "sending": "Enviando…",
+    "replyPromise": "Respuesta en <24h hábiles",
+    "successHeading": "¡Recibido!",
+    "success": "Mensaje enviado. Te respondo pronto.",
+    "sendAnother": "Enviar otro",
+    "error": "Algo falló. Intenta de nuevo o escríbeme directo a fcobarros1995@gmail.com.",
+    "errors": {
+      "name": "Ingresa tu nombre.",
+      "email": "Ingresa un correo válido.",
+      "message": "Cuéntame un poco más (mín. 10 caracteres)."
+    }
+  },
+  "footer": {
+    "kicker": "— Fin",
+    "manifesto": "Si hay un problema de pricing, datos o adopción de IA que vale la pena resolver, escríbeme.",
+    "built": "Diseñado y construido por Francisco Barros, con asistencia de Claude.",
+    "privacy": "Privacidad",
+    "cookies": "Cookies"
   },
   "notFound": {
-    "title": "Página no encontrada",
+    "title": "Esa ruta no existe",
     "description": "La página que buscas no existe o cambió de dirección.",
+    "lead": "Tal vez el link cambió. Vuelve al inicio o explora los proyectos.",
     "back": "Volver al inicio"
+  },
+  "privacy": {
+    "kicker": "Privacidad",
+    "title": "Cómo trato tus datos.",
+    "analytics": "Uso PostHog para analítica privada de navegación: scroll depth, tiempo en página y eventos básicos (descargas, clics en proyecto, envíos de formulario). No comparto esos datos con terceros, no uso cookies de tracking publicitario y no construyo perfiles personales.",
+    "cookies": "Si rechazas las cookies, solo se guardan las estrictamente necesarias (idioma, tema). Puedes cambiar tu preferencia desde el botón \"Cookies\" en el footer.",
+    "contactForm": "Si me escribes desde el formulario de contacto, tu nombre, correo y mensaje llegan directo a mi inbox y no se almacenan en otro lugar.",
+    "back": "Volver"
+  },
+  "cookies": {
+    "title": "Privacidad",
+    "body": "Uso analítica privada (PostHog) para entender qué secciones interesan. Sin cookies de tracking de terceros.",
+    "accept": "Aceptar",
+    "necessary": "Solo necesario",
+    "learnMore": "Leer más"
   }
 }

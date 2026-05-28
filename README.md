@@ -1,9 +1,15 @@
 # Francisco Barros — sitio personal
 
-CV interactivo + portafolio + analítica. Next.js 15, bilingüe (ES/EN), contenido tipado en repo,
-analítica con PostHog. Diseño generado en Claude.ai y portado vía el orquestador `.claude/`.
+Portafolio + CV interactivo bilingüe (ES/EN), listo para producción: **Next.js 15** (App Router),
+**TypeScript strict**, **Tailwind v4**, contenido tipado validado con **Zod**, i18n con **next-intl**,
+formulario de contacto con **Resend**, analítica con **PostHog** (consentimiento bloqueante, sin IP
+cruda) y SEO completo (metadata dinámica, sitemap, JSON-LD, Open Graph vía `next/og`).
 
-> Estado y plan: ver `PROGRESS.md` y `PLAN.md`. Arquitectura y decisiones: `ARCHITECTURE.md`.
+Construido con un **orquestador de Claude Code propio** (`.claude/`): subagentes especializados, skills,
+hooks de calidad y decisiones registradas como ADRs. El diseño se genera en Claude.ai y se _porta_ (no se
+referencia) hacia producción mediante ese orquestador — separando la fuente del diseño de su integración.
+
+> Estado y plan: `PROGRESS.md`, `PLAN.md`. Arquitectura y decisiones (ADRs): `ARCHITECTURE.md`.
 
 ## Setup local
 
@@ -84,3 +90,9 @@ con Playwright. Dominio: apuntar `NEXT_PUBLIC_SITE_URL` al dominio final y confi
 Subagentes, skills, commands y hooks que gobiernan el desarrollo asistido. Guía de extensión en
 `ARCHITECTURE.md` §5. Commands: `/plan`, `/review`, `/check-quality`, `/check-i18n`, `/new-project`,
 `/integrate-design`, `/bump-design`.
+
+## Licencia
+
+Código bajo licencia **MIT** (ver `LICENSE`). El **contenido personal** (CV, biografía, textos de
+proyectos, foto y branding en `content/`, `messages/`, `public/`) es © Francisco Barros Cruz, todos los
+derechos reservados — no está cubierto por la licencia del código.

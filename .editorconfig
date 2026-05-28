@@ -1,0 +1,19 @@
+# EditorConfig — https://editorconfig.org
+# Consistent editor settings across the team; aligned with Prettier
+# (.prettierrc.json) and the LF line endings the repo normalizes to.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.md]
+# Markdown: keep trailing spaces (hard line breaks) and don't trim.
+trim_trailing_whitespace = false
+
+[*.{json,jsonc}]
+indent_size = 2

@@ -86,6 +86,15 @@ diffea, re-porta solo el presentacional de las secciones cambiadas, preserva con
 - **ADR-007 — Geo sin IP cruda.** PostHog deriva geo país/ciudad de la IP pero se configura para
   descartar el `$ip` (no persistir IP en claro). Conserva el dato geográfico útil para el mercado
   internacional con privacidad razonable. _Trade-off:_ no hay geolocalización fina.
+- **ADR-008 — Schema de contenido extendido más allá del DESIGN_BRIEF §3 para calzar con el diseño
+  canónico v1.** El diseño en `design-assets/v1` es la fuente de verdad de producción ratificada por
+  Francisco y usa campos legítimos no contemplados en §3: `kind` (case-study/side-project), `company`,
+  `primaryMetric` y `status` en proyectos; `headline`, `stats`, `trustCompanies` en el perfil; y dos
+  entidades nuevas (`SkillCluster`, `Education`). Se extiende `lib/content/schemas.ts` para soportarlos,
+  respaldados por contenido real y mapeables limpiamente a futuros campos Sanity (coherente con ADR-002).
+  El schema —no §3— pasa a ser la fuente de verdad de la forma del contenido; `DESIGN_BRIEF.md` se deja
+  intacto como artefacto histórico de input. _Trade-off:_ §3 queda superado por el schema. _Reversible:_
+  recortar campos si el diseño los descarta en una versión futura.
 
 ## 5. Cómo extender el orquestador
 

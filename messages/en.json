@@ -6,25 +6,139 @@
     "experience": "Experience",
     "contact": "Contact"
   },
-  "themeToggle": {
-    "label": "Toggle theme",
-    "light": "Light mode",
-    "dark": "Dark mode"
+  "header": {
+    "brand": "Francisco Barros",
+    "language": "Language",
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
-  "localeSwitcher": {
-    "label": "Change language",
-    "es": "Spanish",
-    "en": "English"
+  "cta": {
+    "viewProjects": "View projects",
+    "downloadCv": "Download CV",
+    "contact": "Get in touch",
+    "backToProjects": "Back to projects",
+    "viewRepo": "View repo",
+    "viewDemo": "View demo",
+    "readMore": "Read case",
+    "viewProject": "View project",
+    "sendMessage": "Send message"
   },
-  "home": {
-    "eyebrow": "Site under construction",
-    "title": "The bilingual environment is ready",
-    "description": "i18n routing, light/dark theme and design tokens are wired. Sections land in F4.",
-    "viewProjects": "View projects"
+  "section": {
+    "featured": "Featured work",
+    "allProjects": "All projects",
+    "caseStudies": "Case studies",
+    "sideProjects": "Side projects",
+    "problem": "Problem",
+    "solution": "Solution",
+    "impact": "Impact",
+    "metrics": "Metrics",
+    "stack": "Stack",
+    "role": "Role",
+    "year": "Year",
+    "tags": "Tags",
+    "filterBy": "Filter by",
+    "all": "All",
+    "nothing": "No projects match that filter.",
+    "skills": "Skills",
+    "experience": "Professional experience",
+    "education": "Education",
+    "location": "Location",
+    "downloads": "Downloads"
+  },
+  "badge": {
+    "caseStudy": "Case study",
+    "sideProject": "Side project",
+    "featured": "Featured",
+    "wip": "Work in progress"
+  },
+  "projects": {
+    "title": "Selected work.",
+    "intro": "Four case studies of implementations with measurable impact, plus two side projects where I experiment with my own stack.",
+    "total": "total",
+    "cardAriaPrefix": "Open project: "
+  },
+  "hero": {
+    "kicker": "Portfolio · 2026",
+    "available": "Open for projects",
+    "experienceAt": "Experience at",
+    "pillarsLabel": "Pillars ↘",
+    "scroll": "Scroll to explore",
+    "pillar1": "Pricing Strategy",
+    "pillar2": "Revenue Analytics",
+    "pillar3": "AI-Augmented Decision Making",
+    "pillar1Short": "Pricing",
+    "pillar2Short": "Revenue",
+    "pillar3Short": "AI",
+    "pillar1Kicker": "Strategy",
+    "pillar2Kicker": "Data",
+    "pillar3Kicker": "Applied AI",
+    "pillar1Bullet1": "Elasticity models",
+    "pillar1Bullet2": "Commercial mix",
+    "pillar1Bullet3": "Dynamic pricing (NDC)",
+    "pillar2Bullet1": "Executive dashboards",
+    "pillar2Bullet2": "Forecasting & demand",
+    "pillar2Bullet3": "Channel profitability",
+    "pillar3Bullet1": "Claude · ChatGPT · Gemini",
+    "pillar3Bullet2": "Agents & orchestration",
+    "pillar3Bullet3": "Analytical workflows"
+  },
+  "period": {
+    "present": "Present"
+  },
+  "about": {
+    "whoIAm": "Who I am",
+    "lead": "I think of businesses as systems that can be modeled, instrumented and made to learn.",
+    "context": "My work sits at the crossroads of pricing, data and applied-AI workflows across retail, telecom and travel.",
+    "yearsExperience": "4+ years of experience"
+  },
+  "contact": {
+    "title": "Let’s talk.",
+    "lead": "Best by email. I respond within 24 hours on business days.",
+    "stripNote": "Email is best",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Briefly tell me what you have in mind…",
+    "sending": "Sending…",
+    "replyPromise": "Reply within 24 business hours",
+    "successHeading": "Got it!",
+    "success": "Message sent. I will get back to you soon.",
+    "sendAnother": "Send another",
+    "error": "Something failed. Try again or write directly to fcobarros1995@gmail.com.",
+    "errors": {
+      "name": "Enter your name.",
+      "email": "Enter a valid email.",
+      "message": "Tell me a bit more (min. 10 characters)."
+    }
+  },
+  "footer": {
+    "kicker": "— End",
+    "manifesto": "If there is a pricing, data or AI-adoption problem worth solving, write to me.",
+    "built": "Designed and built by Francisco Barros, with help from Claude.",
+    "privacy": "Privacy",
+    "cookies": "Cookies"
   },
   "notFound": {
-    "title": "Page not found",
+    "title": "This route does not exist",
     "description": "The page you are looking for does not exist or has moved.",
-    "back": "Back to home"
+    "lead": "Maybe the link changed. Head back home or explore the projects.",
+    "back": "Back home"
+  },
+  "privacy": {
+    "kicker": "Privacy",
+    "title": "How I handle your data.",
+    "analytics": "I use PostHog for privacy-friendly navigation analytics: scroll depth, time on page and basic events (downloads, project clicks, form submits). I do not share data with third parties, I do not use advertising tracking cookies, and I do not build personal profiles.",
+    "cookies": "If you decline cookies, only strictly necessary ones (language, theme) are stored. You can change your preference from the \"Cookies\" button in the footer.",
+    "contactForm": "If you write through the contact form, your name, email and message arrive directly to my inbox and are not stored anywhere else.",
+    "back": "Back"
+  },
+  "cookies": {
+    "title": "Privacy",
+    "body": "I use privacy-friendly analytics (PostHog) to understand which sections matter. No third-party tracking cookies.",
+    "accept": "Accept",
+    "necessary": "Necessary only",
+    "learnMore": "Learn more"
   }
 }
