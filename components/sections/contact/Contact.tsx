@@ -242,7 +242,13 @@ export function Contact({ channels, copy }: ContactProps) {
                   </p>
                 )}
 
-                <div className="mt-6 flex items-center justify-between gap-4">
+                {/*
+                  DESIGN-DEVIATION: added flex-wrap so the reply-promise +
+                  submit button degrade onto two lines on very narrow phones
+                  (~320px) instead of the button overflowing the card. At sm+
+                  the row has room and stays single-line, matching the asset.
+                */}
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
                   <p className="font-mono text-[10px] uppercase tracking-[0.08em] text-ink-soft">
                     {copy.replyPromise}
                   </p>

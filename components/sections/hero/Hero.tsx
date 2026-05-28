@@ -257,32 +257,44 @@ export function Hero({ profile, locale, copy }: HeroProps) {
 
           {/* ─── Right: isometric pillar stack ──────────────────────────── */}
           <div className="lg:col-span-5">
-            <div
-              className="relative mx-auto lg:mx-0"
-              style={{ width: 380, height: 320 }}
-            >
+            {/*
+              DESIGN-DEVIATION: the asset uses a fixed 380×320 stack with no
+              mobile handling, which overflows the px-5 section padding on phones
+              (380px > 320px content width at a 360px viewport) and gets clipped
+              right by the section's overflow-hidden. Wrap the fixed stack in a
+              sizing wrapper that reserves only the *scaled* footprint below lg
+              (304×256 at scale .8 → fits with margin at ≥360px, centered via
+              mx-auto), and reset to the untouched 380×320 / scale-1 at lg where
+              the two-column layout restores the original desktop look.
+            */}
+            <div className="mx-auto lg:mx-0 w-[304px] h-[256px] lg:w-[380px] lg:h-[320px]">
               <div
-                aria-hidden
-                className="absolute inset-0 border border-rule"
-                style={{ transform: "translate(-12px, 12px)" }}
-              />
-              <div
-                aria-hidden
-                className="absolute -top-3 -left-3 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-soft"
+                className="relative origin-top-left scale-[0.8] lg:scale-100"
+                style={{ width: 380, height: 320 }}
               >
-                {copy.pillarsLabel}
-              </div>
-
-              {pillars.map((p, i) => (
-                <PillarCard
-                  key={p.key}
-                  p={p}
-                  index={i}
-                  hovered={hovered}
-                  setHovered={setHovered}
-                  reduce={!!reduce}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 border border-rule"
+                  style={{ transform: "translate(-12px, 12px)" }}
                 />
-              ))}
+                <div
+                  aria-hidden
+                  className="absolute -top-3 -left-3 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-soft"
+                >
+                  {copy.pillarsLabel}
+                </div>
+
+                {pillars.map((p, i) => (
+                  <PillarCard
+                    key={p.key}
+                    p={p}
+                    index={i}
+                    hovered={hovered}
+                    setHovered={setHovered}
+                    reduce={!!reduce}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
