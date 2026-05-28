@@ -5,8 +5,10 @@ import type { ComponentProps } from "react";
 
 /**
  * Thin wrapper around next-themes. Client component because it relies on
- * localStorage + the system color-scheme listener. `attribute="data-theme"`
- * matches the editorial tokens, which key dark mode off `[data-theme="dark"]`.
+ * localStorage. Default is LIGHT (not OS-based, `enableSystem={false}`); the user
+ * can still flip to dark via the header toggle and the choice persists.
+ * `attribute="data-theme"` matches the editorial tokens, which key dark mode off
+ * `[data-theme="dark"]`.
  */
 export function ThemeProvider({
   children,
@@ -15,8 +17,8 @@ export function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="data-theme"
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="light"
+      enableSystem={false}
       disableTransitionOnChange
       {...props}
     >
