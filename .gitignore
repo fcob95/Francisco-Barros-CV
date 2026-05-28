@@ -40,3 +40,7 @@ pnpm-debug.log*
 # TypeScript
 *.tsbuildinfo
 .env.local
+
+# Internal / personal working docs (kept local, not part of the public repo)
+TODO_MANUALES.md
+SECURITY_AUDIT.md
