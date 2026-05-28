@@ -2,21 +2,29 @@ import { z } from "zod";
 
 import { profile as profileSeed } from "@/content/profile";
 import { experience as experienceSeed } from "@/content/experience";
-import { pricingIntelligenceEngine } from "@/content/projects/pricing-intelligence-engine";
-import { revenueAnalyticsPlatform } from "@/content/projects/revenue-analytics-platform";
-import { commercialAiCopilot } from "@/content/projects/commercial-ai-copilot";
-import { realEstatePortfolioTracker } from "@/content/projects/real-estate-portfolio-tracker";
+import { skills as skillsSeed } from "@/content/skills";
+import { education as educationSeed } from "@/content/education";
+import { trustonicMovistar } from "@/content/projects/trustonic-movistar";
+import { ndcCochaTravel } from "@/content/projects/ndc-cocha-travel";
+import { marketplaceIntegrationSkinautica } from "@/content/projects/marketplace-integration-skinautica";
+import { aiReportingSkinautica } from "@/content/projects/ai-reporting-skinautica";
+import { finanzasFlow } from "@/content/projects/finanzas-flow";
+import { realEstateChile } from "@/content/projects/real-estate-chile";
 
 import {
+  EducationSchema,
   ExperienceItemSchema,
   ProfileSchema,
   ProjectCardSchema,
   ProjectDetailSchema,
+  SkillClusterSchema,
+  type Education,
   type ExperienceItem,
   type Localized,
   type Profile,
   type ProjectCard,
   type ProjectDetail,
+  type SkillCluster,
 } from "@/lib/content/schemas";
 
 /**
@@ -41,10 +49,12 @@ export function pick(locale: Locale, field: Localized): string {
 
 /** All project detail seeds, in display order (most relevant first). */
 const projectSeeds: readonly unknown[] = [
-  pricingIntelligenceEngine,
-  revenueAnalyticsPlatform,
-  commercialAiCopilot,
-  realEstatePortfolioTracker,
+  trustonicMovistar,
+  ndcCochaTravel,
+  marketplaceIntegrationSkinautica,
+  aiReportingSkinautica,
+  finanzasFlow,
+  realEstateChile,
 ];
 
 /**
@@ -93,9 +103,21 @@ export async function getExperience(): Promise<ExperienceItem[]> {
   );
 }
 
+export async function getSkills(): Promise<SkillCluster[]> {
+  return skillsSeed.map((cluster, i) =>
+    parseOrThrow(SkillClusterSchema, cluster, `SkillCluster[${i}]`),
+  );
+}
+
+export async function getEducation(): Promise<Education> {
+  return parseOrThrow(EducationSchema, educationSeed, "Education");
+}
+
 export type {
+  Education,
   ExperienceItem,
   Profile,
   ProjectCard,
   ProjectDetail,
+  SkillCluster,
 } from "@/lib/content/schemas";

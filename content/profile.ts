@@ -1,45 +1,59 @@
 import type { Profile } from "@/lib/content/schemas";
 
 /**
- * Seed profile content (realistic, NOT final — Francisco replaces later).
- * Localizable fields carry both { es, en }; ES tends to be slightly longer.
+ * Profile content, derived from the canonical design v1 (`design-assets/v1`).
+ *
+ * PENDING FRANCISCO'S FINAL CONFIRMATION (see TODO_MANUALES.md): the public
+ * contact email, social URLs and CV file names below come straight from the
+ * design preview seed. Francisco may change `email` / socials / `cvUrl` before
+ * launch; treat them as placeholders to validate, not as final values.
+ *
+ * `avatar.src` points at Francisco's real photo in `public/images/avatar.jpeg`.
  */
 export const profile: Profile = {
-  name: "Francisco Barros",
+  name: "Francisco Barros Cruz",
+  headline: {
+    es: "Pricing Strategy · Revenue Analytics · AI-Augmented Decision Making",
+    en: "Pricing Strategy · Revenue Analytics · AI-Augmented Decision Making",
+  },
   role: {
-    es: "Consultor en Product Management, BI y Pricing Intelligence",
-    en: "Product Management, BI & Pricing Intelligence Consultant",
+    es: "Pricing Strategy · Revenue Analytics · AI-Augmented Decision Making",
+    en: "Pricing Strategy · Revenue Analytics · AI-Augmented Decision Making",
   },
   tagline: {
-    es: "Convierto datos comerciales en decisiones de precio y producto que mueven el margen.",
-    en: "I turn commercial data into pricing and product decisions that move the margin.",
+    es: "Profesional senior en Pricing y Revenue Analytics. Trabajo en la intersección de estrategia comercial, datos y IA aplicada — donde la decisión de precio, margen y crecimiento se vuelve modelable.",
+    en: "Senior professional in Pricing and Revenue Analytics. I work at the intersection of commercial strategy, data and applied AI — where pricing, margin and growth decisions become modelable.",
   },
   bio: {
-    es: "Ingeniero Civil Industrial chileno con especialización en finanzas. Trabajo en la intersección de analítica de negocio, pricing e IA aplicada: diseño modelos de precios, tableros de BI y herramientas internas que automatizan el análisis comercial. He liderado iniciativas de revenue management en retail y SaaS, traduciendo problemas ambiguos de negocio en sistemas medibles. Construyo lo que recomiendo: Python, SQL, Power BI y agentes de IA para acortar la distancia entre el análisis y la acción.",
-    en: "Chilean Industrial Civil Engineer with a finance specialization. I work at the intersection of business analytics, pricing and applied AI: I design pricing models, BI dashboards and internal tools that automate commercial analysis. I have led revenue management initiatives across retail and SaaS, translating ambiguous business problems into measurable systems. I build what I recommend: Python, SQL, Power BI and AI agents to close the gap between analysis and action.",
+    es: "4+ años impulsando decisiones comerciales mediante pricing, revenue management, análisis de demanda y rentabilidad en retail, turismo y telecomunicaciones. Desarrollo modelos de pricing, elasticidad, mix comercial y performance por canal, además de dashboards ejecutivos para apoyar la definición de precios, márgenes y crecimiento rentable. Adopción activa de IA Generativa (Claude, ChatGPT, Gemini, NotebookLM) para acelerar análisis documental, automatización de reportería, generación de insights y workflows estratégicos. Manejo avanzado de SQL, Power BI y Python para integración multifuente y data governance. Impacto medible: -60% tiempo de análisis, +25% ventas digitales, EUR 2M anuales recuperados. Foco en estrategia comercial, ejecución analítica, escalabilidad y uso de IA como multiplicador de productividad.",
+    en: "4+ years driving commercial decisions through pricing, revenue management, demand and profitability analysis across retail, travel and telecommunications. I build pricing, elasticity, commercial mix and channel-performance models, plus executive dashboards to support price, margin and growth decisions. Active adoption of Generative AI (Claude, ChatGPT, Gemini, NotebookLM) to accelerate document analysis, reporting automation, insight generation and strategic workflows. Advanced command of SQL, Power BI and Python for multi-source integration and data governance. Measurable impact: -60% analysis time, +25% digital sales, EUR 2M recovered annually. Focus on commercial strategy, analytical execution, scalability and AI as a productivity multiplier.",
+  },
+  stats: {
+    es: "4+ años en retail, telecom y travel. €2M+ en revenue impactado, -60% en tiempo de análisis.",
+    en: "4+ years across retail, telecom and travel. €2M+ in revenue impacted, -60% in analysis time.",
   },
   location: "Santiago, Chile",
   avatar: {
-    src: "/images/avatar.svg",
+    src: "/images/avatar.jpeg",
     alt: {
-      es: "Retrato de Francisco Barros",
-      en: "Portrait of Francisco Barros",
+      es: "Francisco Barros Cruz",
+      en: "Francisco Barros Cruz",
     },
     width: 400,
     height: 400,
   },
-  email: "hello@franciscobarros.cl",
+  email: "fcobarros1995@gmail.com",
   cvUrl: {
-    es: "/cv/francisco-barros-cv-es.pdf",
-    en: "/cv/francisco-barros-cv-en.pdf",
+    es: "/cv/CV_Francisco_Barros_Cruz.pdf",
+    en: "/cv/CV_Francisco_Barros_Cruz_EN.pdf",
   },
+  trustCompanies: ["movistar", "cocha", "skinautica"],
   socials: [
     {
       platform: "linkedin",
-      url: "https://www.linkedin.com/in/franciscobarros",
+      url: "https://www.linkedin.com/in/francisco-jose-barros-cruz/",
     },
-    { platform: "github", url: "https://github.com/franciscobarros" },
-    { platform: "x", url: "https://x.com/franciscobarros" },
-    { platform: "email", url: "mailto:hello@franciscobarros.cl" },
+    { platform: "github", url: "https://github.com/fcob95" },
+    { platform: "email", url: "mailto:fcobarros1995@gmail.com" },
   ],
 };
