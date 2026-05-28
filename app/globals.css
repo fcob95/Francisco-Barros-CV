@@ -81,4 +81,36 @@
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
   }
+
+  /*
+   * Global reduced-motion escape hatch (WCAG 2.1 / project anti-pattern rule).
+   * Catches CSS animations and transitions that component-level guards miss
+   * (e.g. Tailwind's `animate-pulse` / `animate-bounce`). Framer Motion is
+   * additionally gated per-component via `useReducedMotion()`.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /*
+   * Print stylesheet (recruiters Cmd+P on /about and /experience). Minimal and
+   * token-consistent: stack the About skills grid to a single column, and keep
+   * each Experience timeline entry on one page (no mid-entry page breaks).
+   */
+  @media print {
+    .about-skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .experience-entry {
+      break-inside: avoid;
+    }
+  }
 }

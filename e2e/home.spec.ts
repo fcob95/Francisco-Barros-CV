@@ -3,32 +3,35 @@ import { test, expect } from "@playwright/test";
 import es from "../messages/es.json" with { type: "json" };
 import en from "../messages/en.json" with { type: "json" };
 
-// localePrefix: 'as-needed' → `/` serves ES, `/en` serves EN. Assert the
-// localized H1 renders in each locale (proves i18n routing + message loading).
+// localePrefix: 'as-needed' → `/` serves ES, `/en` serves EN. The home page is
+// the Hero: its <h1> renders the (locale-independent) display name, while the
+// localized "view projects" CTA proves the right message catalog loaded.
 
-test("home page serves Spanish at the root", async ({ page }) => {
+test("home serves Spanish at the root", async ({ page }) => {
   await page.goto("/");
-  await expect(
-    page.getByRole("heading", { level: 1, name: es.home.title }),
-  ).toBeVisible();
   await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Barros");
+  await expect(
+    page.getByRole("link", { name: es.cta.viewProjects }),
+  ).toBeVisible();
 });
 
-test("home page serves English at /en", async ({ page }) => {
+test("home serves English at /en", async ({ page }) => {
   await page.goto("/en");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Barros");
   await expect(
-    page.getByRole("heading", { level: 1, name: en.home.title }),
+    page.getByRole("link", { name: en.cta.viewProjects }),
   ).toBeVisible();
 });
 
-test("locale switcher and theme toggle are reachable", async ({ page }) => {
+test("header controls are reachable", async ({ page }) => {
   await page.goto("/");
+  // Locale switch group + theme toggle live in the header.
   await expect(
-    page.getByRole("button", { name: es.localeSwitcher.label }),
+    page.getByRole("group", { name: es.header.language }),
   ).toBeVisible();
-  // After hydration the toggle's accessible name reflects the action it will
-  // perform (switch to dark from the light default), not the generic label.
+  // Light is the pinned default → the toggle offers switching to dark.
   await expect(
-    page.getByRole("button", { name: es.themeToggle.dark }),
+    page.getByRole("button", { name: es.header.toDark }),
   ).toBeVisible();
 });
