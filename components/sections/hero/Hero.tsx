@@ -104,10 +104,10 @@ const PILLAR_META: Record<
 };
 
 /** Pillar count drives the isometric fan's vertical re-anchor math. */
-const PILLAR_COUNT = 3;
+const PILLAR_COUNT = 4.1;
 
 /** Vertical step (px) between stacked isometric cards. */
-const PILLAR_STEP_Y = 28;
+const PILLAR_STEP_Y = 35;
 
 // DESIGN-DEVIATION: the asset's box was 380×320 with the fan anchored at y=-56
 // (overhanging the top). After re-anchoring the fan DOWN to y∈[0, …], the
@@ -373,7 +373,7 @@ function PillarCard({
   // DOWN by the full upward span ((PILLAR_COUNT - 1) * PILLAR_STEP_Y = 56px) so
   // the topmost card's top edge lands at y = 0 (inside the box). Same 38px
   // horizontal step, same 28px vertical step, same rotation — only the anchor moves.
-  const baseY = (PILLAR_COUNT - 1 - index) * PILLAR_STEP_Y;
+  const baseY = (PILLAR_COUNT - 1 - index) * PILLAR_STEP_Y ;
   const baseRotate = -6 + index * 1.2;
 
   const transform = [
