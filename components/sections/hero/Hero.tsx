@@ -103,6 +103,19 @@ const PILLAR_META: Record<
   ai: { n: "03", icon: Sparkles, accent: "var(--color-ochre)" },
 };
 
+/** Pillar count drives the isometric fan's vertical re-anchor math. */
+const PILLAR_COUNT = 3;
+
+/** Vertical step (px) between stacked isometric cards. */
+const PILLAR_STEP_Y = 28;
+
+// DESIGN-DEVIATION: the asset's box was 380×320 with the fan anchored at y=-56
+// (overhanging the top). After re-anchoring the fan DOWN to y∈[0, …], the
+// lowest card (index 0, y=56) plus its content height and rotation tilt reaches
+// past 320px, so the box is taller (360px) to avoid clipping the lowest card.
+const HERO_BOX_W = 380;
+const HERO_BOX_H = 360;
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function Hero({ profile, locale, copy }: HeroProps) {
@@ -255,46 +268,68 @@ export function Hero({ profile, locale, copy }: HeroProps) {
             )}
           </div>
 
-          {/* ─── Right: isometric pillar stack ──────────────────────────── */}
+          {/* ─── Right: pillar stack ────────────────────────────────────── */}
           <div className="lg:col-span-5">
             {/*
-              DESIGN-DEVIATION: the asset uses a fixed 380×320 stack with no
-              mobile handling, which overflows the px-5 section padding on phones
-              (380px > 320px content width at a 360px viewport) and gets clipped
-              right by the section's overflow-hidden. Wrap the fixed stack in a
-              sizing wrapper that reserves only the *scaled* footprint below lg
-              (304×256 at scale .8 → fits with margin at ≥360px, centered via
-              mx-auto), and reset to the untouched 380×320 / scale-1 at lg where
-              the two-column layout restores the original desktop look.
+              DESIGN-DEVIATION: the asset only had the desktop isometric stack
+              (fixed 380×320, no mobile handling) which overflowed the px-5
+              section padding on phones and was clipped by overflow-hidden, plus
+              the hover-lift/dim interaction is meaningless on touch. We render
+              two layouts off one data source: the original isometric fan at lg+
+              and a static, touch-friendly vertical card list below lg. The prior
+              scale-[0.8] / w-[304px] h-[256px] mobile shrink wrapper is removed —
+              the vertical list flows naturally with no horizontal overflow.
             */}
-            <div className="mx-auto lg:mx-0 w-[304px] h-[256px] lg:w-[380px] lg:h-[320px]">
-              <div
-                className="relative origin-top-left scale-[0.8] lg:scale-100"
-                style={{ width: 380, height: 320 }}
-              >
-                <div
-                  aria-hidden
-                  className="absolute inset-0 border border-rule"
-                  style={{ transform: "translate(-12px, 12px)" }}
-                />
-                <div
-                  aria-hidden
-                  className="absolute -top-3 -left-3 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-soft"
-                >
-                  {copy.pillarsLabel}
-                </div>
 
-                {pillars.map((p, i) => (
-                  <PillarCard
-                    key={p.key}
-                    p={p}
-                    index={i}
-                    hovered={hovered}
-                    setHovered={setHovered}
-                    reduce={!!reduce}
-                  />
-                ))}
+            {/* Desktop (lg+): isometric fan, re-anchored to sit inside its box. */}
+            <div
+              className="relative mx-auto hidden lg:block"
+              style={{ width: HERO_BOX_W, height: HERO_BOX_H }}
+            >
+              <div
+                aria-hidden
+                className="absolute inset-0 border border-rule"
+                style={{ transform: "translate(-12px, 12px)" }}
+              />
+              <div
+                aria-hidden
+                className="absolute -top-3 -left-3 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-soft"
+              >
+                {copy.pillarsLabel}
               </div>
+
+              {pillars.map((p, i) => (
+                <PillarCard
+                  key={p.key}
+                  p={p}
+                  index={i}
+                  hovered={hovered}
+                  setHovered={setHovered}
+                  reduce={!!reduce}
+                />
+              ))}
+            </div>
+
+            {/*
+              Mobile (< lg): static vertical stack of full-width cards — no
+              absolute positioning, no isometric transforms, no hover-lift/dim
+              (touch has no hover). Same content + editorial styling per card.
+            */}
+            <div className="flex flex-col gap-4 lg:hidden">
+              <span
+                aria-hidden
+                className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-soft"
+              >
+                {copy.pillarsLabel}
+              </span>
+              {pillars.map((p) => (
+                <div
+                  key={p.key}
+                  className="w-full bg-paper-raised border border-ink shadow-[4px_4px_0_0_var(--color-ink)]"
+                >
+                  <PillarCardContent p={p} />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -332,9 +367,14 @@ function PillarCard({
   const isHover = hovered === p.key;
   const isOther = hovered != null && !isHover;
   const baseX = index * 38;
-  const baseY = index * -28;
+  // DESIGN-DEVIATION: the asset anchored the fan at baseY = index * -28, so the
+  // topmost card (index 2) sat at y = -56 — ABOVE the box — overlapping the
+  // "Pilares" label and the numbered header on desktop. We shift the whole fan
+  // DOWN by the full upward span ((PILLAR_COUNT - 1) * PILLAR_STEP_Y = 56px) so
+  // the topmost card's top edge lands at y = 0 (inside the box). Same 38px
+  // horizontal step, same 28px vertical step, same rotation — only the anchor moves.
+  const baseY = (PILLAR_COUNT - 1 - index) * PILLAR_STEP_Y;
   const baseRotate = -6 + index * 1.2;
-  const Icon = p.icon;
 
   const transform = [
     `translate(${baseX}px, ${baseY}px) rotate(${baseRotate}deg)`,
@@ -364,8 +404,23 @@ function PillarCard({
           ? `10px 10px 0 0 ${p.accent}, 0 18px 40px -12px rgba(28,25,23,.22)`
           : "5px 5px 0 0 var(--color-ink), 0 4px 12px -6px rgba(28,25,23,.16)",
       }}
-      className="absolute top-0 left-0 w-[260px] md:w-[300px] bg-paper-raised border border-ink outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-paper cursor-pointer"
+      className="absolute top-0 left-0 w-[300px] bg-paper-raised border border-ink outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-paper cursor-pointer"
     >
+      <PillarCardContent p={p} />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Inner card markup shared by both the desktop isometric fan (PillarCard) and
+ * the mobile vertical list. Pure presentation, no positioning/interaction.
+ */
+function PillarCardContent({ p }: { p: Pillar }) {
+  const Icon = p.icon;
+  return (
+    <>
       {/* Card header */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-ink bg-paper-sunken">
         <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink">
@@ -402,7 +457,7 @@ function PillarCard({
         <span>{p.short}</span>
         <span aria-hidden>↗</span>
       </div>
-    </div>
+    </>
   );
 }
 
