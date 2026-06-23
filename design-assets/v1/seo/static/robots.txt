@@ -1,0 +1,9 @@
+# robots.txt — static fallback. Prefer ../robots.ts on Next.js.
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /draft/
+Disallow: /preview
+
+Sitemap: https://www.franciscobarroscruz.com/sitemap.xml
+Host: https://www.franciscobarroscruz.com

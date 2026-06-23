@@ -1,0 +1,38 @@
+---
+# Blog post front-matter template.
+# Copy this file to create a new post: blog/posts/<slug>.mdx
+# DELETE this template file before launch (or keep as _template.mdx, underscore = ignored).
+
+title:
+  es: "Título en español (≤ 60 chars idealmente)"
+  en: "Title in English"
+description:
+  es: "Meta description ES, 150-160 chars, con la keyword principal de forma natural."
+  en: "Meta description EN, 150-160 chars, natural keyword usage."
+slug: "mi-primer-post"          # URL: /blog/mi-primer-post — kebab-case, no accents
+date: "2026-01-01"              # ISO. Used for <article> datePublished + sitemap lastmod
+updated: "2026-01-01"           # ISO. dateModified
+author: "Francisco Barros Cruz"
+locale: "es"                     # primary locale of this post
+tags: ["IA", "automatización"]  # for internal linking / related posts
+keyword: "automatización con IA" # primary target keyword (one per post)
+cover:
+  src: "/blog/<slug>/cover.png"  # 1200×630 ideally (doubles as OG image)
+  alt:
+    es: "Texto alternativo descriptivo de la imagen"
+    en: "Descriptive alt text for the image"
+draft: true                      # true = excluded from sitemap + index (noindex)
+---
+
+<!--
+  CONTENT GUIDELINES (SEO):
+  - One <h1> = the post title (rendered by the layout, do NOT repeat here).
+  - Use ## (h2) and ### (h3) for structure; put the keyword in at least one h2.
+  - First paragraph should contain the primary keyword naturally.
+  - 600+ words for a substantive post; link to a relevant /servicios anchor and
+    at least one /proyectos case.
+  - Every image needs alt text. Prefer WebP. Lazy-load below the fold.
+  - End with a CTA to /contacto.
+-->
+
+Escribe el contenido del post aquí en Markdown/MDX.

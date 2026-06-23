@@ -61,10 +61,12 @@
   }
 
   function Header({ route, navigate, theme, setTheme }) {
+    const { locale } = useLocale();
     const [open, setOpen] = useState(false);
     const links = [
       ['/', t('nav.home')],
       ['/about', t('nav.about')],
+      ['/services', locale === 'es' ? 'Servicios' : 'Services'],
       ['/projects', t('nav.projects')],
       ['/experience', t('nav.experience')],
       ['/contact', t('nav.contact')],

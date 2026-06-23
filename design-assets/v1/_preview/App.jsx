@@ -3,7 +3,7 @@
 (function() {
   const { useState, useEffect } = React;
   const { Header, Footer, Hero, About, ProjectsList, ProjectDetail, Experience, Contact,
-          NotFound, Privacy, CookieBanner, OGImage, LocaleProvider, useLocale } = window;
+          Services, NotFound, Privacy, CookieBanner, OGImage, LocaleProvider, useLocale } = window;
 
   function App() {
     // route is a string: '/', '/about', '/projects', '/projects/<slug>', '/experience', '/contact', '/privacy', '/404', '/og-image'
@@ -62,6 +62,7 @@
     else if (route === '/about') view = React.createElement(About, { navigate });
     else if (route === '/projects') view = React.createElement(ProjectsList, { navigate });
     else if (route.startsWith('/projects/')) view = React.createElement(ProjectDetail, { slug: route.slice('/projects/'.length), navigate });
+    else if (route === '/services') view = React.createElement(Services, { navigate });
     else if (route === '/experience') view = React.createElement(Experience, { navigate });
     else if (route === '/contact') view = React.createElement(Contact, { navigate });
     else if (route === '/privacy') view = React.createElement(Privacy, { navigate });
@@ -108,6 +109,7 @@
     const routes = [
       ['/', 'Home'],
       ['/about', 'About'],
+      ['/services', 'Servicios (SEO)'],
       ['/projects', 'Projects'],
       ['/projects/trustonic-movistar', '— Trustonic (case)'],
       ['/projects/ndc-cocha-travel', '— NDC (case)'],
