@@ -30,23 +30,27 @@ describe("getProfile", () => {
 });
 
 describe("getProjects", () => {
-  it("returns the eight schema-valid ProjectCards", async () => {
+  it("returns the nine schema-valid ProjectCards", async () => {
     const projects = await getProjects();
-    expect(projects.length).toBe(8);
+    expect(projects.length).toBe(9);
     for (const card of projects) {
       expect(() => ProjectCardSchema.parse(card)).not.toThrow();
       expect(card.primaryMetric.value.length).toBeGreaterThan(0);
     }
   });
 
-  it("includes the two expected featured projects", async () => {
+  it("includes the three expected featured projects", async () => {
     const featured = (await getProjects())
       .filter((p) => p.featured)
       .map((p) => p.slug);
     expect(featured).toEqual(
-      expect.arrayContaining(["trustonic-movistar", "ndc-cocha-travel"]),
+      expect.arrayContaining([
+        "trustonic-movistar",
+        "ndc-cocha-travel",
+        "oakframe",
+      ]),
     );
-    expect(featured.length).toBe(2);
+    expect(featured.length).toBe(3);
   });
 
   it("has unique slugs", async () => {

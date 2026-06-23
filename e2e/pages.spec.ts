@@ -99,3 +99,16 @@ test("unknown route renders the editorial 404", async ({ page }) => {
   await page.goto("/this-route-does-not-exist");
   await expect(page.getByText(es.notFound.title)).toBeVisible();
 });
+
+// Projects with real art render a screenshot hero (heroIsScreenshot) instead of
+// the editorial SVG fallback — assert the <Image> shows on the detail page.
+for (const { slug, name } of [
+  { slug: "oakframe", name: /OAKFRAME/i },
+  { slug: "property-analyzer", name: /Property Analyzer/i },
+]) {
+  test(`project ${slug} renders its screenshot hero`, async ({ page }) => {
+    await page.goto(`/projects/${slug}`);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(name);
+    await expect(page.getByRole("img", { name }).first()).toBeVisible();
+  });
+}

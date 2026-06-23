@@ -56,7 +56,7 @@
   },
   "projects": {
     "title": "Selected work.",
-    "intro": "Four case studies of implementations with measurable impact, plus two side projects where I experiment with my own stack.",
+    "intro": "Case studies of implementations with measurable impact, plus side projects where I experiment with my own stack.",
     "total": "total",
     "cardAriaPrefix": "Open project: "
   },

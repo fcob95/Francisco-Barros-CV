@@ -10,7 +10,8 @@ import { ndcCochaTravel } from "@/content/projects/ndc-cocha-travel";
 import { marketplaceIntegrationSkinautica } from "@/content/projects/marketplace-integration-skinautica";
 import { aiReportingSkinautica } from "@/content/projects/ai-reporting-skinautica";
 import { finanzasFlow } from "@/content/projects/finanzas-flow";
-import { realEstateChile } from "@/content/projects/real-estate-chile";
+import { oakframe } from "@/content/projects/oakframe";
+import { propertyAnalyzer } from "@/content/projects/property-analyzer";
 import { aiOrchestratedPortfolio } from "@/content/projects/ai-orchestrated-portfolio";
 import { aiLearningGuides } from "@/content/projects/ai-learning-guides";
 
@@ -59,9 +60,10 @@ const projectSeeds: readonly unknown[] = [
   marketplaceIntegrationSkinautica,
   aiReportingSkinautica,
   aiOrchestratedPortfolio,
+  oakframe,
   aiLearningGuides,
   finanzasFlow,
-  realEstateChile,
+  propertyAnalyzer,
 ];
 
 /**

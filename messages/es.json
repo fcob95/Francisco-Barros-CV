@@ -56,7 +56,7 @@
   },
   "projects": {
     "title": "Trabajo seleccionado.",
-    "intro": "Cuatro case studies de implementaciones con impacto medible, y dos side projects donde experimento con stack propio.",
+    "intro": "Case studies de implementaciones con impacto medible, y side projects donde experimento con stack propio.",
     "total": "total",
     "cardAriaPrefix": "Abrir proyecto: "
   },

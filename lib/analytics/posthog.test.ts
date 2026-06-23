@@ -81,7 +81,7 @@ describe("initPostHog", () => {
     expect(isInitialised()).toBe(false);
 
     // And capture remains gated because init never flipped the flag.
-    capture("project_view", { slug: "real-estate-chile" });
+    capture("project_view", { slug: "property-analyzer" });
     expect(posthog.capture).not.toHaveBeenCalled();
   });
 

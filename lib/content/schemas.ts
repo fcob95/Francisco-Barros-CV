@@ -123,6 +123,13 @@ export const ProjectDetailSchema = ProjectCardSchema.extend({
   links: ProjectLinksSchema,
   /** Optional downloadable material (e.g. study guides). */
   downloads: z.array(ProjectDownloadSchema).optional(),
+  /**
+   * When true, the detail-page hero renders `heroImage` as a real `<Image>`
+   * (e.g. a product/dashboard screenshot) instead of the editorial SVG fallback.
+   * Most projects use the fallback (design v1, ADR-008); only projects with real
+   * art set this. `heroImage.src` must then point to a raster file under `/public`.
+   */
+  heroIsScreenshot: z.boolean().optional(),
 });
 export type ProjectDetail = z.infer<typeof ProjectDetailSchema>;
 

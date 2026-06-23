@@ -45,8 +45,13 @@ APPROVE-WITH-NITS (fix bloqueante de lint: `eslint` ahora ignora `playwright-rep
 > `services`), entrada en nav (tras Projects), CTA `Link` a `/contact`, `<h1>` sr-only, y SEO
 > **reconciliado** (no portado): `/services` en sitemap + `servicesJsonLd` (ProfessionalService/Service)
 > sobre el `lib/seo` de F7 intacto. Quartet verde + e2e 12/12 (build de producción). **Blog diferido**
-> (andamiaje vacío, sin contenido real). Pendiente: Fase 2 (proyectos Oakframe + Property Analyzer,
-> Property Analyzer reemplaza a `real-estate-chile`) y Fase 3 (auditoría responsive).
+> (andamiaje vacío, sin contenido real). **Fase 2 ✅:** +2 proyectos reales (`oakframe` full-stack
+> AI-native, featured; `property-analyzer` BI/dataviz) y **`real-estate-chile` eliminado** (reemplazado
+> por Property Analyzer). Portafolio: **9 proyectos, 3 featured** (Trustonic, Cocha, Oakframe). Hero
+> híbrido: card con SVG geométrico (consistencia, decisión #8) + **screenshot real en el detalle** vía
+> flag `heroIsScreenshot` + `<Image>` (los otros 8 siguen con el fallback SVG). Screenshots en
+> `public/images/projects/`. `projects.intro` agnóstico al conteo. Quartet verde + e2e 14/14. Pendiente:
+> Fase 3 (auditoría responsive móvil/tablet/desktop).
 
 > Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
