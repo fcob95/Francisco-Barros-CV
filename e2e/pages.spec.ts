@@ -33,6 +33,33 @@ test("about renders the lead statement", async ({ page }) => {
   await expect(page.getByText(es.about.lead)).toBeVisible();
 });
 
+test("services renders the catalog, headings and contact CTA", async ({
+  page,
+}) => {
+  await page.goto("/services");
+  // Single page h1 (visually hidden) carries the page title.
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    es.services.pageTitle,
+  );
+  // The five service titles render as <h3> headings (ES copy).
+  const serviceHeadings = [
+    "Automatización con IA",
+    "Integración de IA",
+    "Sistemas RAG",
+    "Reportería automatizada",
+    "Consultoría en IA + Revenue",
+  ];
+  for (const name of serviceHeadings) {
+    await expect(
+      page.getByRole("heading", { level: 3, name }),
+    ).toBeVisible();
+  }
+  // CTA links to /contact (locale-aware Link, ES root → unprefixed).
+  const cta = page.getByRole("link", { name: es.cta.contact }).last();
+  await expect(cta).toBeVisible();
+  await expect(cta).toHaveAttribute("href", "/contact");
+});
+
 test("experience renders the professional timeline", async ({ page }) => {
   await page.goto("/experience");
   // Assert a real timeline entry (the page title now appears as both a

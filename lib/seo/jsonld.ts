@@ -1,4 +1,4 @@
-import type { Locale, Profile, ProjectDetail } from "@/lib/content";
+import type { Locale, Profile, ProjectDetail, Service } from "@/lib/content";
 import { pick } from "@/lib/content";
 import { SITE_URL, absoluteUrl } from "@/lib/seo/site";
 
@@ -26,6 +26,46 @@ export function personJsonLd(profile: Profile, locale: Locale) {
     sameAs: profile.socials
       .filter((s) => s.platform !== "email")
       .map((s) => s.url),
+  };
+}
+
+/**
+ * Schema.org `ProfessionalService` for the /services surface. The provider is a
+ * `Person` built from the profile; `hasOfferCatalog` lists one `Offer` → `Service`
+ * per service, with deep-link `url`s (`#<slug>`) matching the section anchors.
+ * Only already-public content is exposed.
+ */
+export function servicesJsonLd(
+  services: Service[],
+  profile: Profile,
+  locale: Locale,
+) {
+  const servicesUrl = absoluteUrl("/services", locale);
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: profile.name,
+    url: servicesUrl,
+    areaServed: profile.location,
+    provider: {
+      "@type": "Person",
+      name: profile.name,
+      jobTitle: pick(locale, profile.role),
+      url: absoluteUrl("/", locale),
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: pick(locale, profile.role),
+      itemListElement: services.map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: pick(locale, service.title),
+          description: pick(locale, service.summary),
+          url: `${servicesUrl}#${service.slug}`,
+        },
+      })),
+    },
   };
 }
 

@@ -158,6 +158,27 @@ export const SkillClusterSchema = z.object({
 });
 export type SkillCluster = z.infer<typeof SkillClusterSchema>;
 
+// --- Services ---------------------------------------------------------------
+
+/**
+ * A service offering — the SEO-primary surface (applied AI for business).
+ * Each entry is indexable copy (title · summary · description paragraph ·
+ * what's-included list), NOT bullets in an image. `slug` doubles as the section
+ * anchor id and the Service JSON-LD @id fragment, so it stays as authored.
+ * `icon` is a lucide-react component name, mapped to the component in the
+ * presentational Services. `keyword` is the primary keyword this service targets.
+ */
+export const ServiceSchema = z.object({
+  slug: z.string().min(1),
+  title: LocalizedSchema,
+  summary: LocalizedSchema,
+  description: LocalizedSchema,
+  includes: z.array(LocalizedSchema).min(1),
+  icon: z.enum(["Workflow", "Plug", "Database", "FileBarChart", "Sparkles"]),
+  keyword: z.string().min(1),
+});
+export type Service = z.infer<typeof ServiceSchema>;
+
 // --- Education --------------------------------------------------------------
 
 export const EducationSchema = z.object({

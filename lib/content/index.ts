@@ -3,6 +3,7 @@ import { z } from "zod";
 import { profile as profileSeed } from "@/content/profile";
 import { experience as experienceSeed } from "@/content/experience";
 import { skills as skillsSeed } from "@/content/skills";
+import { services as servicesSeed } from "@/content/services";
 import { education as educationSeed } from "@/content/education";
 import { trustonicMovistar } from "@/content/projects/trustonic-movistar";
 import { ndcCochaTravel } from "@/content/projects/ndc-cocha-travel";
@@ -19,6 +20,7 @@ import {
   ProfileSchema,
   ProjectCardSchema,
   ProjectDetailSchema,
+  ServiceSchema,
   SkillClusterSchema,
   type Education,
   type ExperienceItem,
@@ -26,6 +28,7 @@ import {
   type Profile,
   type ProjectCard,
   type ProjectDetail,
+  type Service,
   type SkillCluster,
 } from "@/lib/content/schemas";
 
@@ -113,6 +116,12 @@ export async function getSkills(): Promise<SkillCluster[]> {
   );
 }
 
+export async function getServices(): Promise<Service[]> {
+  return servicesSeed.map((service, i) =>
+    parseOrThrow(ServiceSchema, service, `Service[${i}]`),
+  );
+}
+
 export async function getEducation(): Promise<Education> {
   return parseOrThrow(EducationSchema, educationSeed, "Education");
 }
@@ -123,5 +132,6 @@ export type {
   Profile,
   ProjectCard,
   ProjectDetail,
+  Service,
   SkillCluster,
 } from "@/lib/content/schemas";

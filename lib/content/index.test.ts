@@ -6,6 +6,7 @@ import {
   getProfile,
   getProject,
   getProjects,
+  getServices,
   getSkills,
   pick,
 } from "@/lib/content";
@@ -15,6 +16,7 @@ import {
   ProfileSchema,
   ProjectCardSchema,
   ProjectDetailSchema,
+  ServiceSchema,
   SkillClusterSchema,
 } from "@/lib/content/schemas";
 
@@ -95,6 +97,40 @@ describe("getSkills", () => {
       expect(() => SkillClusterSchema.parse(cluster)).not.toThrow();
       expect(cluster.items.length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("getServices", () => {
+  it("returns the five schema-valid services", async () => {
+    const services = await getServices();
+    expect(services.length).toBe(5);
+    for (const service of services) {
+      expect(() => ServiceSchema.parse(service)).not.toThrow();
+      expect(service.includes.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("has non-empty es/en for every localized field", async () => {
+    const services = await getServices();
+    for (const service of services) {
+      for (const field of [
+        service.title,
+        service.summary,
+        service.description,
+      ]) {
+        expect(field.es.length).toBeGreaterThan(0);
+        expect(field.en.length).toBeGreaterThan(0);
+      }
+      for (const item of service.includes) {
+        expect(item.es.length).toBeGreaterThan(0);
+        expect(item.en.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("has unique slugs", async () => {
+    const slugs = (await getServices()).map((s) => s.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
   });
 });
 
