@@ -55,9 +55,13 @@ export function ProjectCard({ project: p, copy }: ProjectCardProps) {
       }}
       style={{
         boxShadow: "4px 4px 0 0 var(--color-ink)",
-        gridColumn: p.featured ? "span 2" : "span 1",
       }}
-      className="group relative block bg-paper-raised border border-ink no-underline outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-paper transition-all duration-300 hover:-translate-x-[3px] hover:-translate-y-[3px]"
+      className={`group relative block bg-paper-raised border border-ink no-underline outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-paper transition-all duration-300 hover:-translate-x-[3px] hover:-translate-y-[3px] ${
+        // Featured cards span 2 columns — but only once the grid HAS ≥2 columns
+        // (sm and up). On mobile the grid is a single column, so an unconditional
+        // span-2 created a phantom 2nd track and overflowed the viewport.
+        p.featured ? "sm:col-span-2" : ""
+      }`}
     >
       <article>
         {/* Top strip — kind + featured + company + year */}

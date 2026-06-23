@@ -50,8 +50,12 @@ APPROVE-WITH-NITS (fix bloqueante de lint: `eslint` ahora ignora `playwright-rep
 > por Property Analyzer). Portafolio: **9 proyectos, 3 featured** (Trustonic, Cocha, Oakframe). Hero
 > híbrido: card con SVG geométrico (consistencia, decisión #8) + **screenshot real en el detalle** vía
 > flag `heroIsScreenshot` + `<Image>` (los otros 8 siguen con el fallback SVG). Screenshots en
-> `public/images/projects/`. `projects.intro` agnóstico al conteo. Quartet verde + e2e 14/14. Pendiente:
-> Fase 3 (auditoría responsive móvil/tablet/desktop).
+> `public/images/projects/`. `projects.intro` agnóstico al conteo. Quartet verde + e2e 14/14.
+> **Fase 3 ✅ (responsive):** auditoría con Playwright en 3 anchos (390/820/1366) detectando overflow
+> horizontal por página. Único hallazgo: `/projects` desbordaba en móvil (+237px) porque las cards
+> `featured` aplicaban `gridColumn: span 2` incluso en la grilla de 1 columna del móvil. Fix: span-2 solo
+> desde `sm:` (`sm:col-span-2`), no en móvil. Post-fix: overflow=0 en las 9 páginas × 3 anchos; quartet
+> verde + e2e 14/14. **Integración de assets nuevos COMPLETA** (rama lista para PR).
 
 > Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
