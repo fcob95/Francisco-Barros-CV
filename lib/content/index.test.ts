@@ -6,6 +6,7 @@ import {
   getProfile,
   getProject,
   getProjects,
+  getServices,
   getSkills,
   pick,
 } from "@/lib/content";
@@ -15,6 +16,7 @@ import {
   ProfileSchema,
   ProjectCardSchema,
   ProjectDetailSchema,
+  ServiceSchema,
   SkillClusterSchema,
 } from "@/lib/content/schemas";
 
@@ -28,23 +30,27 @@ describe("getProfile", () => {
 });
 
 describe("getProjects", () => {
-  it("returns the eight schema-valid ProjectCards", async () => {
+  it("returns the nine schema-valid ProjectCards", async () => {
     const projects = await getProjects();
-    expect(projects.length).toBe(8);
+    expect(projects.length).toBe(9);
     for (const card of projects) {
       expect(() => ProjectCardSchema.parse(card)).not.toThrow();
       expect(card.primaryMetric.value.length).toBeGreaterThan(0);
     }
   });
 
-  it("includes the two expected featured projects", async () => {
+  it("includes the three expected featured projects", async () => {
     const featured = (await getProjects())
       .filter((p) => p.featured)
       .map((p) => p.slug);
     expect(featured).toEqual(
-      expect.arrayContaining(["trustonic-movistar", "ndc-cocha-travel"]),
+      expect.arrayContaining([
+        "trustonic-movistar",
+        "ndc-cocha-travel",
+        "oakframe",
+      ]),
     );
-    expect(featured.length).toBe(2);
+    expect(featured.length).toBe(3);
   });
 
   it("has unique slugs", async () => {
@@ -95,6 +101,40 @@ describe("getSkills", () => {
       expect(() => SkillClusterSchema.parse(cluster)).not.toThrow();
       expect(cluster.items.length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("getServices", () => {
+  it("returns the five schema-valid services", async () => {
+    const services = await getServices();
+    expect(services.length).toBe(5);
+    for (const service of services) {
+      expect(() => ServiceSchema.parse(service)).not.toThrow();
+      expect(service.includes.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("has non-empty es/en for every localized field", async () => {
+    const services = await getServices();
+    for (const service of services) {
+      for (const field of [
+        service.title,
+        service.summary,
+        service.description,
+      ]) {
+        expect(field.es.length).toBeGreaterThan(0);
+        expect(field.en.length).toBeGreaterThan(0);
+      }
+      for (const item of service.includes) {
+        expect(item.es.length).toBeGreaterThan(0);
+        expect(item.en.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("has unique slugs", async () => {
+    const slugs = (await getServices()).map((s) => s.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
   });
 });
 

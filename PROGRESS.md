@@ -36,7 +36,26 @@ vía `next/og` (`opengraph-image` por locale + por proyecto, con fallback de fue
 sr-only por página (a11y: exactamente un h1 por página). +17 tests SEO (57 total). `code-reviewer`
 APPROVE-WITH-NITS (fix bloqueante de lint: `eslint` ahora ignora `playwright-report/`/`test-results/`).**
 **ALCANCE F4→F7 COMPLETO**: sitio listo para producción (sin desplegar). Quartet verde + e2e 10/10.
-**Última actualización:** 2026-05-28.
+**Última actualización:** 2026-06-23.
+
+> **2026-06-23 — Integración de assets nuevos (en curso, rama `feat/services-projects-responsive`).**
+> Llegaron 3 assets nuevos a `design-assets/v1/`: `services/`, `blog/` y `seo/`. **Fase 1 ✅:** sección
+> **Services** portada a `/services` (slug inglés uniforme, decisión 5) con patrón presentacional+
+> contenedor, `ServiceSchema` Zod + `content/services.ts` bilingüe + `getServices()`, i18n (namespace
+> `services`), entrada en nav (tras Projects), CTA `Link` a `/contact`, `<h1>` sr-only, y SEO
+> **reconciliado** (no portado): `/services` en sitemap + `servicesJsonLd` (ProfessionalService/Service)
+> sobre el `lib/seo` de F7 intacto. Quartet verde + e2e 12/12 (build de producción). **Blog diferido**
+> (andamiaje vacío, sin contenido real). **Fase 2 ✅:** +2 proyectos reales (`oakframe` full-stack
+> AI-native, featured; `property-analyzer` BI/dataviz) y **`real-estate-chile` eliminado** (reemplazado
+> por Property Analyzer). Portafolio: **9 proyectos, 3 featured** (Trustonic, Cocha, Oakframe). Hero
+> híbrido: card con SVG geométrico (consistencia, decisión #8) + **screenshot real en el detalle** vía
+> flag `heroIsScreenshot` + `<Image>` (los otros 8 siguen con el fallback SVG). Screenshots en
+> `public/images/projects/`. `projects.intro` agnóstico al conteo. Quartet verde + e2e 14/14.
+> **Fase 3 ✅ (responsive):** auditoría con Playwright en 3 anchos (390/820/1366) detectando overflow
+> horizontal por página. Único hallazgo: `/projects` desbordaba en móvil (+237px) porque las cards
+> `featured` aplicaban `gridColumn: span 2` incluso en la grilla de 1 columna del móvil. Fix: span-2 solo
+> desde `sm:` (`sm:col-span-2`), no en móvil. Post-fix: overflow=0 en las 9 páginas × 3 anchos; quartet
+> verde + e2e 14/14. **Integración de assets nuevos COMPLETA** (rama lista para PR).
 
 > Nota de proceso: el entorno (núcleo de F0) se construyó por pedido explícito de Francisco, **fuera del
 > flujo formal de F0** (sin subagente `frontend-builder` ni checkpoint/`code-reviewer`). El 2026-05-25 se
@@ -86,6 +105,12 @@ APPROVE-WITH-NITS (fix bloqueante de lint: `eslint` ahora ignora `playwright-rep
     Se **extendió el schema Zod** para soportarlos (respaldados por datos reales, mapeables a Sanity). El
     schema —no el §3— pasa a ser la fuente de verdad de la forma; `DESIGN_BRIEF.md` queda intacto como
     artefacto histórico. Detalle en `ARCHITECTURE.md` ADR-008.
+15. **SEO de nuevos assets se RECONCILIA, no se porta (2026-06-23):** cuando un asset de diseño trae su
+    propia capa `seo/` (como el paquete v1 entregado), NO se porta sobre `lib/seo` (F7) — duplicaría y
+    chocaría. Se extiende `lib/seo` con lo que falte (metadata de la ruta nueva, entrada en sitemap,
+    builder JSON-LD específico). El `seo/` del asset queda como fuente de referencia en la zona
+    read-only. Igual criterio para futuros `bump-design`. **Blog: andamiaje diferido** hasta haber
+    contenido real (no se publican rutas vacías; alineado con "no inventar").
 
 - [x] Cerrar scaffolding E2 (docs + `.claude/` + CLAUDE.md jerárquicos + design-assets).
 - [x] Gate E2 → aprobado por Francisco (2026-05-25).

@@ -10,7 +10,7 @@ import { absoluteUrl, languageAlternates } from "@/lib/seo/site";
  * absolute URL; `as-needed` prefixing is handled by the URL helpers.
  *
  * Coverage:
- *   - static routes: /, /about, /projects, /experience, /contact, /privacy
+ *   - static routes: /, /about, /projects, /services, /experience, /contact, /privacy
  *   - dynamic: /projects/[slug] for every project slug
  */
 
@@ -18,6 +18,7 @@ const STATIC_PATHS = [
   "/",
   "/about",
   "/projects",
+  "/services",
   "/experience",
   "/contact",
   "/privacy",

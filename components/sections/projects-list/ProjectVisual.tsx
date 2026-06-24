@@ -82,12 +82,16 @@ const compositions: Record<string, { type: CompositionType; accent: string }> =
       accent: "var(--color-terracotta)",
     },
     "finanzas-flow": { type: "bars", accent: "var(--color-ocean)" },
-    "real-estate-chile": { type: "map", accent: "var(--color-ocean)" },
+    // Santiago real-estate market dashboard (BI). Reuses the map composition
+    // (SCL pins + CAP RATE), inherited from the retired real-estate-chile slug.
+    "property-analyzer": { type: "map", accent: "var(--color-ocean)" },
     "ai-orchestrated-portfolio": {
       type: "agents",
       accent: "var(--color-ocean)",
     },
     "ai-learning-guides": { type: "docs", accent: "var(--color-ocean)" },
+    // OAKFRAME — the double offset "frame" composition doubles as a nod to the name.
+    oakframe: { type: "frame", accent: "var(--color-ocean)" },
   };
 
 // ─────────────────────────────────────────────────────────────────────────────

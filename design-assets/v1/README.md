@@ -207,11 +207,29 @@ Para `/about` y `/experience` (recruiters imprimen):
 
 ---
 
+## SEO (añadido) — `seo/`, `services/`, `blog/`
+
+Capa de SEO Next.js-ready. Ver `seo/README.md` para el detalle. Resumen:
+
+- `seo/site.config.ts` — fuente única: dominio, locales (ES/EN), keywords, geo, socials.
+- `seo/metadata.ts` — `pageMetadata("home","es")` por página: title/description/OG/Twitter/canonical/hreflang.
+- `seo/JsonLd.tsx` — `<SiteJsonLd/>` (Person + ProfessionalService + WebSite) y `<ServicesJsonLd/>`.
+- `seo/sitemap.ts` + `seo/robots.ts` — rutas nativas Next (`app/sitemap.ts`, `app/robots.ts`). Fallbacks estáticos en `seo/static/`.
+- `services/` — nueva sección `/servicios` (foco SEO: IA aplicada). Copy indexable + 5 servicios + JSON-LD.
+- `blog/` — andamiaje (índice + plantilla + 1 placeholder `draft:true`). Sin contenido inventado.
+- `preview.html` — el `<head>` ahora demuestra la salida real (title/OG/hreflang/JSON-LD) de la home; copia el bloque JSON-LD al Rich Results Test para validar.
+
+### Posicionamiento
+
+IA aplicada a negocio = foco PRINCIPAL (automatización, integración, RAG, reportería, consultoría IA).
+Pricing & revenue analytics = DIFERENCIADOR (tejido en hero, about y el 5º servicio).
+
+---
+
 ## Qué FALTA en v1 (intencional, para iteraciones futuras)
 
 - Galería de proyecto (campo `gallery` en ProjectDetail; v1 muestra solo hero).
 - Buscador en /projects (chips bastan con 6 proyectos).
 - Páginas individuales para skills (`/skills/[id]`).
-- RSS / blog.
 - Animación de scroll-driven en hero (sólo entry animation + hover por ahora).
 - Real-time validation en el contact form (HTML5 nativo suficiente para v1).

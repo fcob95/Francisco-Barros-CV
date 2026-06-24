@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Static fallback sitemap. Prefer ../sitemap.ts on Next.js (auto hreflang + lastmod).
+  Update lastmod dates and add real project/blog <url> entries before submitting.
+  xhtml:link alternates declare the ES/EN versions of each page (hreflang).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.franciscobarroscruz.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.franciscobarroscruz.com/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.franciscobarroscruz.com/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/servicios</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.franciscobarroscruz.com/servicios"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.franciscobarroscruz.com/en/servicios"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.franciscobarroscruz.com/servicios"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/proyectos</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.franciscobarroscruz.com/proyectos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.franciscobarroscruz.com/en/proyectos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.franciscobarroscruz.com/proyectos"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.franciscobarroscruz.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.franciscobarroscruz.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.franciscobarroscruz.com/about"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/experiencia</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.franciscobarroscruz.com/experiencia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.franciscobarroscruz.com/en/experiencia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.franciscobarroscruz.com/experiencia"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/contacto</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.franciscobarroscruz.com/contacto"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.franciscobarroscruz.com/en/contacto"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.franciscobarroscruz.com/contacto"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.franciscobarroscruz.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.franciscobarroscruz.com/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.franciscobarroscruz.com/blog"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://www.franciscobarroscruz.com/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
+</urlset>

@@ -36,6 +36,11 @@ export interface ProjectDetailView {
   metrics: DetailMetricView[];
   links: { repo?: string; demo?: string };
   downloads: DetailDownloadView[];
+  /**
+   * Real hero screenshot to render in place of the editorial SVG fallback.
+   * `null` for projects without real art (the majority) → fallback is used.
+   */
+  screenshot: { src: string; alt: string } | null;
 }
 
 /** Resolved labels for the detail chrome. */

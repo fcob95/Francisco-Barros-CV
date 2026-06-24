@@ -3,13 +3,15 @@ import { z } from "zod";
 import { profile as profileSeed } from "@/content/profile";
 import { experience as experienceSeed } from "@/content/experience";
 import { skills as skillsSeed } from "@/content/skills";
+import { services as servicesSeed } from "@/content/services";
 import { education as educationSeed } from "@/content/education";
 import { trustonicMovistar } from "@/content/projects/trustonic-movistar";
 import { ndcCochaTravel } from "@/content/projects/ndc-cocha-travel";
 import { marketplaceIntegrationSkinautica } from "@/content/projects/marketplace-integration-skinautica";
 import { aiReportingSkinautica } from "@/content/projects/ai-reporting-skinautica";
 import { finanzasFlow } from "@/content/projects/finanzas-flow";
-import { realEstateChile } from "@/content/projects/real-estate-chile";
+import { oakframe } from "@/content/projects/oakframe";
+import { propertyAnalyzer } from "@/content/projects/property-analyzer";
 import { aiOrchestratedPortfolio } from "@/content/projects/ai-orchestrated-portfolio";
 import { aiLearningGuides } from "@/content/projects/ai-learning-guides";
 
@@ -19,6 +21,7 @@ import {
   ProfileSchema,
   ProjectCardSchema,
   ProjectDetailSchema,
+  ServiceSchema,
   SkillClusterSchema,
   type Education,
   type ExperienceItem,
@@ -26,6 +29,7 @@ import {
   type Profile,
   type ProjectCard,
   type ProjectDetail,
+  type Service,
   type SkillCluster,
 } from "@/lib/content/schemas";
 
@@ -56,9 +60,10 @@ const projectSeeds: readonly unknown[] = [
   marketplaceIntegrationSkinautica,
   aiReportingSkinautica,
   aiOrchestratedPortfolio,
+  oakframe,
   aiLearningGuides,
   finanzasFlow,
-  realEstateChile,
+  propertyAnalyzer,
 ];
 
 /**
@@ -113,6 +118,12 @@ export async function getSkills(): Promise<SkillCluster[]> {
   );
 }
 
+export async function getServices(): Promise<Service[]> {
+  return servicesSeed.map((service, i) =>
+    parseOrThrow(ServiceSchema, service, `Service[${i}]`),
+  );
+}
+
 export async function getEducation(): Promise<Education> {
   return parseOrThrow(EducationSchema, educationSeed, "Education");
 }
@@ -123,5 +134,6 @@ export type {
   Profile,
   ProjectCard,
   ProjectDetail,
+  Service,
   SkillCluster,
 } from "@/lib/content/schemas";

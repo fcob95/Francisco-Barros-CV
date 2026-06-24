@@ -9,7 +9,8 @@ import { ndcCochaTravel } from "@/content/projects/ndc-cocha-travel";
 import { marketplaceIntegrationSkinautica } from "@/content/projects/marketplace-integration-skinautica";
 import { aiReportingSkinautica } from "@/content/projects/ai-reporting-skinautica";
 import { finanzasFlow } from "@/content/projects/finanzas-flow";
-import { realEstateChile } from "@/content/projects/real-estate-chile";
+import { oakframe } from "@/content/projects/oakframe";
+import { propertyAnalyzer } from "@/content/projects/property-analyzer";
 import { aiOrchestratedPortfolio } from "@/content/projects/ai-orchestrated-portfolio";
 import { aiLearningGuides } from "@/content/projects/ai-learning-guides";
 import {
@@ -28,9 +29,10 @@ const allProjects = [
   marketplaceIntegrationSkinautica,
   aiReportingSkinautica,
   aiOrchestratedPortfolio,
+  oakframe,
   aiLearningGuides,
   finanzasFlow,
-  realEstateChile,
+  propertyAnalyzer,
 ];
 
 describe("schema helpers", () => {
@@ -116,15 +118,16 @@ describe("seed parses against schemas", () => {
 });
 
 describe("seed business rules", () => {
-  it("has exactly eight projects", () => {
-    expect(allProjects.length).toBe(8);
+  it("has exactly nine projects", () => {
+    expect(allProjects.length).toBe(9);
   });
 
-  it("has the two expected featured projects", () => {
+  it("has the three expected featured projects", () => {
     const featured = allProjects.filter((p) => p.featured).map((p) => p.slug);
     expect(featured).toContain("trustonic-movistar");
     expect(featured).toContain("ndc-cocha-travel");
-    expect(featured.length).toBe(2);
+    expect(featured).toContain("oakframe");
+    expect(featured.length).toBe(3);
   });
 
   it("project slugs are unique", () => {

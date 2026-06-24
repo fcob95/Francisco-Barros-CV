@@ -46,6 +46,9 @@ export async function ProjectDetailContainer({
       label: pick(locale, d.label),
       summary: pick(locale, d.summary),
     })),
+    screenshot: p.heroIsScreenshot
+      ? { src: p.heroImage.src, alt: pick(locale, p.heroImage.alt) }
+      : null,
   };
 
   const copy: ProjectDetailCopy = {

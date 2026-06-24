@@ -29,6 +29,8 @@ import {
   Github,
 } from "lucide-react";
 
+import Image from "next/image";
+
 import { Link } from "@/i18n/navigation";
 import type { ProjectDetailCopy, ProjectDetailView } from "./types";
 
@@ -96,17 +98,28 @@ export function ProjectDetail({ project: p, copy }: ProjectDetailProps) {
         </div>
       </header>
 
-      {/* Hero composition — editorial SVG fallback; replace with <Image> when art exists. */}
+      {/* Hero: a real screenshot when the project has art, else the editorial SVG fallback. */}
       <div
         className="relative w-full mb-12 md:mb-16 border border-ink bg-paper-raised overflow-hidden"
         style={{ aspectRatio: "16 / 7" }}
       >
-        <DetailHeroFallback
-          year={p.year}
-          slug={p.slug}
-          kind={p.kind}
-          accent={accent}
-        />
+        {p.screenshot ? (
+          <Image
+            src={p.screenshot.src}
+            alt={p.screenshot.alt}
+            fill
+            sizes="(max-width: 1240px) 100vw, 1240px"
+            className="object-cover object-top"
+            priority
+          />
+        ) : (
+          <DetailHeroFallback
+            year={p.year}
+            slug={p.slug}
+            kind={p.kind}
+            accent={accent}
+          />
+        )}
       </div>
 
       {/* Two-column body */}

@@ -123,6 +123,13 @@ export const ProjectDetailSchema = ProjectCardSchema.extend({
   links: ProjectLinksSchema,
   /** Optional downloadable material (e.g. study guides). */
   downloads: z.array(ProjectDownloadSchema).optional(),
+  /**
+   * When true, the detail-page hero renders `heroImage` as a real `<Image>`
+   * (e.g. a product/dashboard screenshot) instead of the editorial SVG fallback.
+   * Most projects use the fallback (design v1, ADR-008); only projects with real
+   * art set this. `heroImage.src` must then point to a raster file under `/public`.
+   */
+  heroIsScreenshot: z.boolean().optional(),
 });
 export type ProjectDetail = z.infer<typeof ProjectDetailSchema>;
 
@@ -157,6 +164,27 @@ export const SkillClusterSchema = z.object({
   items: z.array(z.string().min(1)),
 });
 export type SkillCluster = z.infer<typeof SkillClusterSchema>;
+
+// --- Services ---------------------------------------------------------------
+
+/**
+ * A service offering — the SEO-primary surface (applied AI for business).
+ * Each entry is indexable copy (title · summary · description paragraph ·
+ * what's-included list), NOT bullets in an image. `slug` doubles as the section
+ * anchor id and the Service JSON-LD @id fragment, so it stays as authored.
+ * `icon` is a lucide-react component name, mapped to the component in the
+ * presentational Services. `keyword` is the primary keyword this service targets.
+ */
+export const ServiceSchema = z.object({
+  slug: z.string().min(1),
+  title: LocalizedSchema,
+  summary: LocalizedSchema,
+  description: LocalizedSchema,
+  includes: z.array(LocalizedSchema).min(1),
+  icon: z.enum(["Workflow", "Plug", "Database", "FileBarChart", "Sparkles"]),
+  keyword: z.string().min(1),
+});
+export type Service = z.infer<typeof ServiceSchema>;
 
 // --- Education --------------------------------------------------------------
 

@@ -3,6 +3,7 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
+    "services": "Services",
     "experience": "Experience",
     "contact": "Contact"
   },
@@ -55,9 +56,18 @@
   },
   "projects": {
     "title": "Selected work.",
-    "intro": "Four case studies of implementations with measurable impact, plus two side projects where I experiment with my own stack.",
+    "intro": "Case studies of implementations with measurable impact, plus side projects where I experiment with my own stack.",
     "total": "total",
     "cardAriaPrefix": "Open project: "
+  },
+  "services": {
+    "pageTitle": "Services",
+    "sectionLabel": "06 / Services",
+    "countSuffix": "services",
+    "heading": "Applied AI for your business.",
+    "intro": "AI automation, AI integration, RAG systems and automated reporting — with a pricing and revenue-analytics lens as the differentiator.",
+    "ctaQuestion": "Which of these would unblock your next bottleneck?",
+    "metaDescription": "AI automation, AI integration, RAG systems and automated reporting for companies — with a pricing and revenue-analytics edge."
   },
   "hero": {
     "kicker": "Portfolio · 2026",

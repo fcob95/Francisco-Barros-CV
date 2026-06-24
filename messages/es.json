@@ -3,6 +3,7 @@
     "home": "Inicio",
     "about": "Sobre mí",
     "projects": "Proyectos",
+    "services": "Servicios",
     "experience": "Experiencia",
     "contact": "Contacto"
   },
@@ -55,9 +56,18 @@
   },
   "projects": {
     "title": "Trabajo seleccionado.",
-    "intro": "Cuatro case studies de implementaciones con impacto medible, y dos side projects donde experimento con stack propio.",
+    "intro": "Case studies de implementaciones con impacto medible, y side projects donde experimento con stack propio.",
     "total": "total",
     "cardAriaPrefix": "Abrir proyecto: "
+  },
+  "services": {
+    "pageTitle": "Servicios",
+    "sectionLabel": "06 / Servicios",
+    "countSuffix": "servicios",
+    "heading": "IA aplicada a tu negocio.",
+    "intro": "Automatización con IA, integración de IA, sistemas RAG y reportería automatizada — con el criterio de pricing y revenue analytics como diferenciador.",
+    "ctaQuestion": "¿Cuál de estos resolvería tu próximo cuello de botella?",
+    "metaDescription": "Automatización con IA, integración de IA, sistemas RAG y reportería automatizada para empresas — con criterio de pricing y revenue analytics."
   },
   "hero": {
     "kicker": "Portfolio · 2026",
